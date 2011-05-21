@@ -85,6 +85,10 @@ rm rom/system/etc/PowerOn.wav
 rm rom/system/etc/PowerOn.snd
 echo "done."
 
+echo -n "Removing battery notification tone..."
+rm rom/system/media/audio/ui/TW_Battery_caution.ogg
+echo "done."
+
 echo "DONE - TRIMMING THE ROM"
 
 

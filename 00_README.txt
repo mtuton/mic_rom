@@ -1,3 +1,12 @@
+Create Custom ROM
+
+1. Deodex the ROM
+2. Run the script to apply the customisations to the ROM
+3. ZIP the ROM directory and apply to device using CWM recovery
+
+
+Detail on customisations made below.
+
 Custom components
 
 The following contains the details for customising the ROM.
@@ -37,7 +46,7 @@ armeabi-v7a
 
 *** APPLICATIONS ***
 
-Email-iPhone
+Email
 - ROM needs to be deodexed before inserting this app into ROM
 - copy custom-apps/Email.apk into /system/app
 

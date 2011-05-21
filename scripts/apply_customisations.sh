@@ -2,48 +2,93 @@
 
 # Applies customisation to a ROM
 
-echo "Copying kernel & modem"
+echo -n "Copying kernel & modem..."
 cp customisations/kernel/zImage rom/updates
 cp customisations/modem/modem.bin rom/updates
 echo "done."
 
-echo "Copying CSC files"
+echo -n "Copying CSC files..."
 cp -rp customisations/csc-system/* rom/system
 echo "done."
 
-echo "Copying GPS files"
+echo -n "Copying GPS files..."
 cp -rp customisations/gps/system rom/system
 echo "done."
 
-echo "Copying bootanimation"
+echo -n "Copying bootanimation..."
 cp customisations/bootanimation/bootanimation.zip rom/system/media
 echo "done."
 
-echo "Rooting the ROM"
+echo -n "Rooting the ROM..."
 cp -p customisations/root/system/xbin/busybox rom/system/xbin
 cp -p customisations/root/system/xbin/su rom/system/xbin
 cp -p customisations/root/system/app/Superuser.apk rom/system/app
 echo "done."
 
-echo "Copying zipalign"
+echo -n "Copying zipalign..."
 cp -p customisations/system-bin/zipalign rom/system/bin
 echo "done"
 
-echo "Copying init.d files"
+echo -n "Copying init.d files..."
 cp -rp customisations/init.d rom/system/etc
 echo "done."
 
-echo "Copying armeabi-v7a library files"
+echo -n "Copying armeabi-v7a library files..."
 cp -rp customisations/lib/armeabi-v7a rom/system/lib
 echo "done."
 
+echo "APPLYING CUSTOM APPS"
 
-echo "Copying Email-iPhone app"
+echo -n "Copying Email-iPhone app..."
 cp customisations/custom-apps/Email.apk rom/system/app
 echo "done."
 
+echo "DONE - APPLYING CUSTOM APPS"
 
-echo "Cleaning up ROM"
+echo "TRIMMING THE ROM"
+
+echo -n "Removing Swype..."
+rm rom/system/app/Swype.apk
+rm rom/system/lib/libSwypeCode.so
+echo "done."
+
+echo -n "Removing Protips..."
+rm rom/system/app/Protips.apk
+echo "done."
+
+echo -n "Removing Samsung All..." 
+rm rom/system/app/Dlna.apk
+echo "done."
+
+echo -n "Removing Sim Toolkit..."
+rm rom/system/app/Stk.apk
+echo "done."
+
+echo -n "Removing PhoneSetupWizard..."
+rm rom/system/app/PhoneSetupWizard.apk
+echo "done."
+
+echo -n "Removing PressReader..."
+rm rom/system/app/PressReader.apk
+echo "done."
+
+echo -n "Removing GoogleFeedback..."
+rm rom/system/app/GoogleFeedback.apk
+echo "done."
+
+echo -n "Removing autorun.iso.."
+rm rom/system/etc/autorun.iso
+echo "done."
+
+echo -n "Removing startup sounds..."
+rm rom/system/etc/PowerOn.wav
+rm rom/system/etc/PowerOn.snd
+echo "done."
+
+echo "DONE - TRIMMING THE ROM"
+
+
+echo -n "Cleaning up ROM..."
 rm rom/system/zipalign.log
 rm rom/system/bin/cat
 rm rom/system/bin/chmod

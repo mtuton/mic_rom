@@ -97,6 +97,8 @@ echo "done."
 echo "DONE - TRIMMING THE ROM"
 
 
+# All these files will be created as symlinks when the ROM is installed
+
 echo -n "Cleaning up ROM..."
 rm rom/system/zipalign.log
 rm rom/system/bin/cat
@@ -150,4 +152,6 @@ rm rom/system/bin/umount
 rm rom/system/bin/vmstat
 rm rom/system/bin/watchprops
 rm rom/system/bin/wipe
+rm rom/system/bin/dumpmesg
+rm rom/system/bin/csview
 echo "done."

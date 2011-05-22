@@ -2,6 +2,10 @@
 
 # Applies customisation to a ROM
 
+echo -n "Copying updater-script..."
+cp -rp customisations/META-INF rom
+echo "done."
+
 echo -n "Copying kernel & modem..."
 cp customisations/kernel/zImage rom/updates
 cp customisations/modem/modem.bin rom/updates
@@ -27,6 +31,7 @@ echo "done."
 
 echo -n "Copying zipalign..."
 cp -p customisations/system-bin/zipalign rom/system/bin
+chmod 755 rom/system/bin/zipalign
 echo "done"
 
 echo -n "Copying init.d files..."

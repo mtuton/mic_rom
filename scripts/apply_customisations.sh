@@ -25,9 +25,9 @@ echo -n "Copying CSC files..."
 cp -rp customisations/csc-system/* rom/system
 echo "done."
 
-echo -n "Copying GPS files..."
-cp -rp customisations/gps/system rom/system
-echo "done."
+#echo -n "Copying GPS files..."
+#cp -rp customisations/gps/system rom/system
+#echo "done."
 
 echo -n "Copying bootanimation..."
 cp customisations/bootanimation/bootanimation.zip rom/system/media

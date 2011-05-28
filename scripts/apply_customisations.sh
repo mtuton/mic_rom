@@ -10,14 +10,21 @@ remove_file()
 {
 	file=$1
 	echo -n "  removing: $file "
-	if test -f "$file"; then
-		rm "$file"
-	#	echo "done."
-	#else
-	#	echo "already removed."
-	fi
+	rm -f "$file"
 	echo "done."
 }
+
+#
+# Removes an app from the ROM
+#
+remove_app()
+{
+	file="rom/system/app/$1"
+	echo -n "  removing: $file "
+	rm -f "$file"
+	echo "done."
+}
+
 
 #
 # Copy core files to ROM: kernel, modem, CSC, etc
@@ -28,6 +35,7 @@ cp -rp customisations/META-INF rom
 echo "done."
 
 echo -n "  adding: kernel & modem..."
+cp -rp customisations/updates rom
 cp customisations/kernel/zImage rom/updates
 cp customisations/modem/modem.bin rom/updates
 echo "done."
@@ -78,27 +86,113 @@ echo "done."
 #
 echo "Trimming the ROM"
 
-# Swype
-remove_file rom/system/app/Swype.apk
+# Swype (I'm using the beta version instead)
+remove_app Swype.apk
 remove_file rom/system/lib/libSwypeCode.so
 
-# Protips
-remove_file rom/system/app/Protips.apk
+# Aldiko Standard
+#remove_app aldiko-standard-1.2.6.1-samsung-s1.apk
 
-# Samsung All Share
-remove_file rom/system/app/Dlna.apk
+# Bluetooth Test Mode
+#remove_app BluetoothTestMode.apk
+
+# Buddies Now - widget for touchwiz launcher
+remove_app BuddiesNow.apk
+
+# Days - widget for touchwiz launcher
+remove_app Days.apk
+
+# Dual Clock - have two clocks on your homescreen for different timezones
+remove_app DualClock.apk
+
+# Facebook support. SNS Provider, Account, Unified Inbox
+#   - to have facebook/twitter/myspace accounts synced in your contacts and calendar and have all the updates of posts there
+#remove_app SnsAccount.apk
+#remove_app SnsProvider.apk
+#remove_app SnsAccount.apk
+#remove_app SnsProvider.apk
+
+# Google Feedback
+remove_app GoogleFeedback.apk
+
+# HTML Viewer
+#remove_app HTMLViewer.apk
+
+# Info Alarm
+#remove_app InfoAlarm.apk
+
+# Layar samsung
+#remove_app Layar-samsung.apk
+
+# Memo
+#remove_app Memo.apk
+
+# Mini Diary
+#remove_app MiniDiary.apk
+
+# Mtp Application - let Samsung Kies recognize and connect to your PDA
+#remove_app Mtpapplication.apk
+
+# Press Reader
+remove_app PressReader.apk
+
+# Protips
+remove_app Protips.apk
+
+# Samsung All Share - wireless communication with other Samsung dlna compatible devices
+remove_app Dlna.apk
+
+# Samsung Apps
+remove_app SamsungApps.apk
+
+# Samsung Widget Calendar Clock - shows a calendar/clock on your homescreen
+#remove_app SamsungWidget_CalendarClock.apk
+
+# Samsung Widget Feed And Update - view rss feeds on your homescreen
+#remove_app SamsungWidget_FeedAndUpdate.apk
+
+# Samsung Widget Stock Clock - shows clock on your homescreen
+#remove_app SamsungWidget_StockClock.apk
 
 # Sim Toolkit
-remove_file rom/system/app/Stk.apk
+remove_app Stk.apk
 
-# PhoneSetupWizard
-remove_file rom/system/app/PhoneSetupWizard.apk
+# Street View
+#remove_app Street.apk
 
-# PressReader
-remove_file rom/system/app/PressReader.apk
+# ThinkDroid - ThinkFree Office
+#remove_app Thinkdroid.apk
 
-# GoogleFeedback
-remove_file rom/system/app/GoogleFeedback.apk
+# TW (Touch Wiz) Live Wallpapers 
+#remove_app TwWallpaperChooser.apk
+#remove_app TATLiveWallpaperBeach.apk
+#remove_app TATLiveWallpapersAurora.apk
+#remove_app TATLiveWallpapersBlueSea.apk
+
+# Voice Recorder
+#remove_app VoiceRecorder.apk
+
+# Voice Search
+#remove_app VoiceSearch.apk
+
+# Wipereceiver 
+#remove_app wipereceiver.apk
+#remove_app MobileTrackerEngineTwo.apk
+#remove_app MobileTrackerUI.apk
+
+# Write and Go
+remove_app WriteandGo.apk
+
+# YouTube
+#remove_app YouTube.apk
+
+
+#
+# Always remove the following apps and files
+#
+
+# PhoneSetupWizard - otherwise we'll have to go through the setup each time we load a new ROM
+remove_app PhoneSetupWizard.apk
 
 # autorun.iso
 remove_file rom/system/etc/autorun.iso
@@ -107,7 +201,7 @@ remove_file rom/system/etc/autorun.iso
 remove_file rom/system/etc/PowerOn.wav
 remove_file rom/system/etc/PowerOn.snd
 
-# battery notification tone
+# battery notification tone - removes sounds when the battery is full (keeps waking me up)
 remove_file rom/system/media/audio/ui/TW_Battery_caution.ogg
 #
 # Finished trimming the ROM.

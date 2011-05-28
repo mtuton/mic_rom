@@ -5,11 +5,13 @@
 remove_file()
 {
 	file=$1
+	echo -n "removing $file"
 	if test -f "$file"; then
 		rm "$file"
 	else
 		echo "$file already removed."
 	fi
+	echo "done"
 }
 
 echo -n "Copying updater-script..."

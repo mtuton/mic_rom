@@ -2,28 +2,37 @@
 
 # Applies customisation to a ROM
 
+
+#
+# Removes file from the rom - friendly version
+#
 remove_file()
 {
 	file=$1
-	echo -n "removing $file"
+	echo -n "  removing: $file "
 	if test -f "$file"; then
 		rm "$file"
-	else
-		echo "$file already removed."
+	#	echo "done."
+	#else
+	#	echo "already removed."
 	fi
-	echo "done"
+	echo "done."
 }
 
-echo -n "Copying updater-script..."
+#
+# Copy core files to ROM: kernel, modem, CSC, etc
+#
+echo "Adding core files to ROM"
+echo -n "  adding: updater-script..."
 cp -rp customisations/META-INF rom
 echo "done."
 
-echo -n "Copying kernel & modem..."
+echo -n "  adding: kernel & modem..."
 cp customisations/kernel/zImage rom/updates
 cp customisations/modem/modem.bin rom/updates
 echo "done."
 
-echo -n "Copying CSC files..."
+echo -n "  adding: CSC files..."
 cp -rp customisations/csc-system/* rom/system
 echo "done."
 
@@ -31,87 +40,83 @@ echo "done."
 #cp -rp customisations/gps/system rom/system
 #echo "done."
 
-echo -n "Copying bootanimation..."
+echo -n "  adding: bootanimation..."
 cp customisations/bootanimation/bootanimation.zip rom/system/media
 echo "done."
 
-echo -n "Rooting the ROM..."
+echo -n "  adding: root..."
 cp -p customisations/root/system/xbin/busybox rom/system/xbin
 cp -p customisations/root/system/xbin/su rom/system/xbin
 cp -p customisations/root/system/app/Superuser.apk rom/system/app
 echo "done."
 
-echo -n "Copying zipalign..."
+echo -n "  adding: zipalign..."
 cp -p customisations/system-bin/zipalign rom/system/bin
 chmod 755 rom/system/bin/zipalign
 echo "done"
 
-echo -n "Copying init.d files..."
+echo -n "  adding: init.d files..."
 cp -rp customisations/init.d rom/system/etc
 echo "done."
 
-echo -n "Copying armeabi-v7a library files..."
+echo -n "  adding: armeabi-v7a library files..."
 cp -rp customisations/lib/armeabi-v7a rom/system/lib
 echo "done."
 
-echo "APPLYING CUSTOM APPS"
+#
+# Add custom apps to the ROM
+#
+echo "Adding custom apps"
 
-echo -n "Copying Email-iPhone app..."
+echo -n "  adding: Email-iPhone app..."
 cp customisations/custom-apps/Email.apk rom/system/app
 echo "done."
 
-echo "DONE - APPLYING CUSTOM APPS"
 
-echo "TRIMMING THE ROM"
+#
+# Remove apps from the ROM
+#
+echo "Trimming the ROM"
 
-echo -n "Removing Swype..."
+# Swype
 remove_file rom/system/app/Swype.apk
 remove_file rom/system/lib/libSwypeCode.so
-echo "done."
 
-echo -n "Removing Protips..."
+# Protips
 remove_file rom/system/app/Protips.apk
-echo "done."
 
-echo -n "Removing Samsung All..." 
+# Samsung All Share
 remove_file rom/system/app/Dlna.apk
-echo "done."
 
-echo -n "Removing Sim Toolkit..."
+# Sim Toolkit
 remove_file rom/system/app/Stk.apk
-echo "done."
 
-echo -n "Removing PhoneSetupWizard..."
+# PhoneSetupWizard
 remove_file rom/system/app/PhoneSetupWizard.apk
-echo "done."
 
-echo -n "Removing PressReader..."
+# PressReader
 remove_file rom/system/app/PressReader.apk
-echo "done."
 
-echo -n "Removing GoogleFeedback..."
+# GoogleFeedback
 remove_file rom/system/app/GoogleFeedback.apk
-echo "done."
 
-echo -n "Removing autorun.iso.."
+# autorun.iso
 remove_file rom/system/etc/autorun.iso
-echo "done."
 
-echo -n "Removing startup sounds..."
+# startup sounds
 remove_file rom/system/etc/PowerOn.wav
 remove_file rom/system/etc/PowerOn.snd
-echo "done."
 
-echo -n "Removing battery notification tone..."
+# battery notification tone
 remove_file rom/system/media/audio/ui/TW_Battery_caution.ogg
-echo "done."
+#
+# Finished trimming the ROM.
+#
 
-echo "DONE - TRIMMING THE ROM"
-
-
+#
 # All these files will be created as symlinks when the ROM is installed
-
-echo -n "Cleaning up ROM..."
+#
+echo "Removing symlinks (will be re-created when installing the ROM)"
 remove_file rom/system/zipalign.log
 remove_file rom/system/bin/cat
 remove_file rom/system/bin/chmod
@@ -166,4 +171,9 @@ remove_file rom/system/bin/watchprops
 remove_file rom/system/bin/wipe
 remove_file rom/system/bin/dumpmesg
 remove_file rom/system/bin/csview
-echo "done."
+# symlinks removed
+
+# Now we're done
+echo "ROM almost complete, ZIP it up and install using CWM."
+
+

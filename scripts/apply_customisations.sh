@@ -1,7 +1,159 @@
 #!/bin/sh
 
-# Applies customisation to a ROM
+# Kernel, Modem & CSC
+rom_kernel="mic_kernel-v06.2"
+rom_modem="xxjq1"
+rom_csc="xsa"
+rom_bootanimation="android_rings"
 
+# Apply custom GPS files
+include_custom_gps=0
+
+# Apply customisation to a ROM
+#  0 - do not include in the ROM
+#  1 - include in the ROM
+
+# Swype
+include_Swype=0
+
+# Aldiko Standard eBook Reader
+include_Aldiko=0
+
+# Bluetooth Test Mode
+include_BluetoothTestMode=1
+
+# Days - widget for touchwiz launcher
+include_Days=0
+
+# Days - widget for touchwiz launcher
+include_DualClock=0
+
+# Facebook support. SNS Provider, Account, Unified Inbox
+#   - to have facebook/twitter/myspace accounts synced in your contacts and calendar and have all the updates of posts there
+include_Sns=1
+
+# Google Feedback
+include_GoogleFeedback=1
+
+# HTML Viewer
+include_HTMLViewer=1
+
+# Info Alarm
+include_InfoAlarm=1
+
+# Layar samsung
+include_Layar=0
+
+# Memo
+include_Memo=0
+
+# Mini Diary
+include_MiniDiary=0
+
+# Mtp Application - let Samsung Kies recognize and connect to your PDA
+include_Mtpapplication=1
+
+# Press Reader
+include_PressReader=0
+
+# Protips
+include_Protips=0
+
+# Samsung All Share - wireless communication with other Samsung dlna compatible devices
+include_Dlna=0
+
+# Samsung Apps
+include_SamsungApps=0
+
+# Samsung Widget Calendar Clock - shows a calendar/clock on your homescreen
+include_SamsungWidget_CalendarClock=1
+
+# Samsung Widget Feed And Update - view rss feeds on your homescreen
+include_SamsungWidget_FeedAndUpdate=1
+
+# Samsung Widget Stock Clock - shows clock on your homescreen
+include_SamsungWidget_StockClock=1
+
+# Sim Toolkit
+include_Stk=0
+
+# Street View
+include_Street=1
+
+# ThinkDroid - ThinkFree Office
+include_Thinkdroid=1
+
+# TW (Touch Wiz) Live Wallpapers 
+include_TWLiveWallpapers=1
+
+# Voice Recorder
+include_VoiceRecorder=1
+
+# Voice Search
+include_VoiceSearch=1
+
+# Wipereceiver 
+include_Wipereceiver=1
+
+# Write and Go
+include_WriteandGo=0
+
+# YouTube
+include_YouTube=1
+
+#################################################################################################
+
+# Details of the ROM we're using as the base
+rom_base="rom_bases/rom"
+target_rom="rom"
+
+custom="customisations"
+
+#
+# Base ROM locations
+#
+get_rom_base_dir()
+{
+	# base ROM location
+	case $1 in
+		data)		rom_base_dir="$rom_base/data"   ;;
+		system)		rom_base_dir="$rom_base/system" ;;
+		updates)	rom_base_dir="$custom/updates"  ;;
+		kernel)		rom_base_dir="$custom/kernel"   ;;
+		modem)		rom_base_dir="$custom/modem"	;;
+		csc)		rom_base_dir="$custom/csc"	;;
+		gps)		rom_base_dir="$custom/gps/system"  ;;
+		bootanimation)	rom_base_dir="$custom/bootanimation" ;;
+		xbin)		rom_base_dir="$custom/system-xbin" ;;
+		bin)		rom_base_dir="$custom/system-bin"  ;;
+		lib)		rom_base_dir="$custom/system-lib"  ;;
+		etc)		rom_base_dir="$custom/system-etc"  ;;
+		meta_inf)	rom_base_dir="$custom/META-INF"    ;;
+	esac
+}
+
+#
+# Target ROM locations
+#
+get_target_rom_dir()
+{
+	# target ROM location
+	case $1 in
+		data)		target_rom_dir="$target_rom/data"    ;;
+		system)		target_rom_dir="$target_rom/system"  ;;
+		updates)	target_rom_dir="$target_rom/updates" ;;
+		kernel)		target_rom_dir="$target_rom/updates" ;;
+		modem)		target_rom_dir="$target_rom/updates" ;;
+		csc)		target_rom_dir="$target_rom/system"  ;;
+		gps)		target_rom_dir="$target_rom/system"  ;;
+		bootanimation)	target_rom_dir="$target_rom/system/media" ;;
+		xbin)		target_rom_dir="$target_rom/system/xbin"  ;;
+		bin)		target_rom_dir="$target_rom/system/bin"   ;;
+		lib)		target_rom_dir="$target_rom/system/lib"   ;;
+		etc)		target_rom_dir="$target_rom/system/etc"   ;;
+		meta_inf)	target_rom_dir="$target_rom/META-INF"	  ;;
+	esac
+}
 
 #
 # Removes file from the rom - friendly version
@@ -25,51 +177,292 @@ remove_app()
 	echo "done."
 }
 
+#
+# Delete everything from the target ROM directory
+#
+create_empty_target_rom()
+{
+	if test -d $target_rom; then
+		rm -rf $target_rom/*
+	else
+		mkdir -p $target_rom
+	fi
+}
 
 #
-# Copy core files to ROM: kernel, modem, CSC, etc
+# Bulk copy the system files from the base ROM into the target ROM 
 #
-echo "Adding core files to ROM"
-echo -n "  adding: updater-script..."
-cp -rp customisations/META-INF rom
+bulk_populate_rom()
+{
+	# Add system directory from ROM base into the target ROM
+	get_rom_base_dir system 
+	get_target_rom_dir system
+
+	if ! test -d $rom_base_dir; then
+		echo "ROM base not found: $rom_base_dir"
+		exit 1
+	fi
+
+	if ! test -d $target_rom_dir; then
+		mkdir -p $target_rom_dir
+	fi
+
+	echo "Copying system files into $target_rom_dir"
+	(cd $rom_base_dir; tar cf - .) | (cd $target_rom_dir; tar xpf -)
+
+	# Add the updates directory from customisations into the target ROM
+	get_rom_base_dir updates
+	get_target_rom_dir updates
+
+	if test -d $rom_base_dir; then
+		cp -rp $rom_base_dir $target_rom_dir
+	else
+		echo "ERROR: cannot find updates directory: $rom_base_dir"
+	fi
+}
+
+#
+# Add kernel into ROM
+#
+add_kernel()
+{
+	name=$1
+
+	get_rom_base_dir kernel
+	get_target_rom_dir kernel
+
+	custom_kernel="$rom_base_dir/$name/zImage"
+
+	if test -e $custom_kernel; then
+		cp $custom_kernel $target_rom_dir
+	else
+		echo "ERROR: cannot find kernel: $name in $custom_kernel"
+		exit 1
+	fi
+}
+
+#
+# Add modem into ROM
+#
+add_modem()
+{
+	name=$1
+
+	get_rom_base_dir modem
+	get_target_rom_dir modem
+
+	custom_file="$rom_base_dir/$name/modem.bin"
+
+	if test -e $custom_file; then
+		cp $custom_file $target_rom_dir
+	else
+		echo "ERROR: cannot find modem: $name in $custom_file"
+		exit 1
+	fi
+}
+
+#
+# Remove CSC from ROM
+#
+remove_csc()
+{
+	get_target_rom_dir csc
+
+	rm -f "$target_rom_dir/CSCFiles.txt"
+	rm -f "$target_rom_dir/CSCVersion.txt"
+	rm -f "$target_rom_dir/SW_Configuration.xml"
+	rm -rf "$target_rom_dir/csc"
+}
+
+#
+# Add CSC into ROM
+#
+add_csc()
+{
+	name=$1
+
+	# first remove the existing CSC
+	remove_csc
+
+	get_rom_base_dir csc
+	get_target_rom_dir csc
+
+	custom_csc_dir="$rom_base_dir/$name"
+
+	if test -d $custom_csc_dir; then
+		cp -rp $custom_csc_dir/* $target_rom_dir
+	else
+		echo "ERROR: cannot find csc: $name in $custom_csc_dir"
+		exit 1
+	fi
+}
+
+#
+# Add Custom GPS
+#
+add_custom_gps()
+{
+	if test $include_custom_gps = 0; then
+		return
+	fi
+
+	echo "  adding custom gps"
+	get_rom_base_dir gps
+	get_target_rom_dir gps
+
+	if test -d $rom_base_dir; then
+		cp -rp $rom_base_dir $target_rom_dir
+	fi
+}
+
+#
+# Add bootanimation into ROM
+#
+add_bootanimation()
+{
+	name=$1
+
+	get_rom_base_dir bootanimation
+	get_target_rom_dir bootanimation
+
+	custom_file="$rom_base_dir/$name/bootanimation.zip"
+
+	echo "  adding: bootanimation"
+	if test -e $custom_file; then
+		cp $custom_file $target_rom_dir
+	else
+		echo "ERROR: cannot find bootanimation: $name in $custom_file"
+		exit 1
+	fi
+}
+
+
+#
+# Add files into the ROM
+#
+add_into_rom()
+{
+	function=$1
+	name=$2
+	case $function in
+		kernel)		
+			echo "  adding kernel: $name"
+			add_kernel $name
+			;;
+		modem)		
+			echo "  adding modem : $name" 
+			add_modem $name
+			;;
+		csc)		
+			echo "  adding csc   : $name" 
+			add_csc $name
+			;;
+	esac	
+}
+
+#
+# Add root
+#
+add_root()
+{
+	echo "TODO: add Superuser app"
+	# add_custom_app Superuser
+	# add_system_xbin
+}
+
+#
+# Merge custom system/bin to ROM
+#
+merge_system_bin()
+{
+	get_rom_base_dir bin
+	get_target_rom_dir bin
+
+	if test -d $rom_base_dir; then
+		cp -rp $rom_base_dir/* $target_rom_dir
+	fi
+}
+
+#
+# Merge custom system/xbin to ROM
+#
+merge_system_xbin()
+{
+	get_rom_base_dir xbin
+	get_target_rom_dir xbin
+
+	if test -d $rom_base_dir; then
+		cp -rp $rom_base_dir/* $target_rom_dir
+	fi
+}
+
+#
+# Merge custom system/lib to ROM
+#
+merge_system_lib()
+{
+	get_rom_base_dir lib
+	get_target_rom_dir lib
+
+	if test -d $rom_base_dir; then
+		cp -rp $rom_base_dir/* $target_rom_dir
+	fi
+}
+
+#
+# Merge custom system/etc to ROM
+#
+merge_system_etc()
+{
+	get_rom_base_dir etc
+	get_target_rom_dir etc
+
+	if test -d $rom_base_dir; then
+		cp -rp $rom_base_dir/* $target_rom_dir
+	fi
+}
+
+#
+# Add META-INF scripts
+#
+add_meta_inf()
+{
+	get_rom_base_dir meta_inf
+	get_target_rom_dir meta_inf
+
+	! test -d $target_rom_dir && mkdir -p $target_rom_dir
+
+	cp -rp $rom_base_dir/* $target_rom_dir
+}
+
+
+# main()
+
+echo "Preparing target rom"
+create_empty_target_rom
+bulk_populate_rom
+
+# adding: kernel, modem & csc..."
+add_into_rom kernel $rom_kernel
+add_into_rom modem  $rom_modem
+add_into_rom csc    $rom_csc
 echo "done."
 
-echo -n "  adding: kernel & modem..."
-cp -rp customisations/updates rom
-cp customisations/kernel/zImage rom/updates
-cp customisations/modem/modem.bin rom/updates
-echo "done."
+add_custom_gps
 
-echo -n "  adding: CSC files..."
-cp -rp customisations/csc-system/* rom/system
-echo "done."
+add_bootanimation $rom_bootanimation
+merge_system_xbin
+merge_system_bin
+merge_system_lib
+merge_system_etc
 
-#echo -n "Copying GPS files..."
-#cp -rp customisations/gps/system rom/system
-#echo "done."
+add_meta_inf
 
-echo -n "  adding: bootanimation..."
-cp customisations/bootanimation/bootanimation.zip rom/system/media
-echo "done."
+add_root
 
-echo -n "  adding: root..."
-cp -p customisations/root/system/xbin/busybox rom/system/xbin
-cp -p customisations/root/system/xbin/su rom/system/xbin
-cp -p customisations/root/system/app/Superuser.apk rom/system/app
-echo "done."
+echo "done (for now!)"
+exit 0
 
-echo -n "  adding: zipalign..."
-cp -p customisations/system-bin/zipalign rom/system/bin
-chmod 755 rom/system/bin/zipalign
-echo "done"
-
-echo -n "  adding: init.d files..."
-cp -rp customisations/init.d rom/system/etc
-echo "done."
-
-echo -n "  adding: armeabi-v7a library files..."
-cp -rp customisations/lib/armeabi-v7a rom/system/lib
-echo "done."
 
 #
 # Add custom apps to the ROM

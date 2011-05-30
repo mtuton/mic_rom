@@ -9,9 +9,24 @@ rom_bootanimation="android_rings"
 # Apply custom GPS files
 include_custom_gps=0
 
-# Apply customisation to a ROM
-#  0 - do not include in the ROM
-#  1 - include in the ROM
+#
+# Which custom apps to include in the ROM
+#
+#  1 - include app in the ROM
+#  0 - do not include app in the ROM
+#
+#  default is to NOT include the custom app
+#
+include_custom_app_in_rom()
+{
+	case $1 in
+		Email)		include_app=1 ;;
+		Superuser)	include_app=1 ;;
+		*)		include_app=0 ;;
+	esac
+}
+
+
 
 # Swype
 include_Swype=0
@@ -101,6 +116,24 @@ include_WriteandGo=0
 # YouTube
 include_YouTube=1
 
+
+#
+# Which apps to include in the ROM
+#
+#  1 - include app in the ROM
+#  0 - do not include app in the ROM
+#
+#  default is to include the app in the ROM
+#
+include_app_in_rom()
+{
+	case $1 in
+		aldiko-standard-1.2.6.1-samsung-s1)	include_app=0 ;;
+		YouTube)				include_app=1 ;;
+		*)					include_app=1 ;;
+	esac
+}
+
 #################################################################################################
 
 # Details of the ROM we're using as the base
@@ -114,7 +147,7 @@ custom="customisations"
 #
 get_rom_base_dir()
 {
-	# base ROM location
+	# ROM base location
 	case $1 in
 		data)		rom_base_dir="$rom_base/data"   ;;
 		system)		rom_base_dir="$rom_base/system" ;;
@@ -129,6 +162,7 @@ get_rom_base_dir()
 		lib)		rom_base_dir="$custom/system-lib"  ;;
 		etc)		rom_base_dir="$custom/system-etc"  ;;
 		meta_inf)	rom_base_dir="$custom/META-INF"    ;;
+		app)		rom_base_dir="$custom/app"	   ;;
 	esac
 }
 
@@ -152,6 +186,7 @@ get_target_rom_dir()
 		lib)		target_rom_dir="$target_rom/system/lib"   ;;
 		etc)		target_rom_dir="$target_rom/system/etc"   ;;
 		meta_inf)	target_rom_dir="$target_rom/META-INF"	  ;;
+		app)		target_rom_dir="$target_rom/system/app"	  ;;
 	esac
 }
 
@@ -435,6 +470,71 @@ add_meta_inf()
 	cp -rp $rom_base_dir/* $target_rom_dir
 }
 
+#
+# Add custom app to ROM
+#
+add_custom_app()
+{
+	name=$1
+
+	get_rom_base_dir app
+	get_target_rom_dir app
+
+	custom_app="$rom_base_dir/$name.apk"
+
+	test -f $custom_app && cp $custom_app $target_rom_dir
+}
+
+#
+# Add custom apps to ROM
+#
+add_custom_apps()
+{
+	get_rom_base_dir app
+	get_target_rom_dir app
+
+	for custom_app in $rom_base_dir/*; do
+
+		! test -f $custom_app && continue
+
+		app_name=${custom_app%\.*}
+		short_app_name=${app_name#$rom_base_dir/}
+		
+		include_custom_app_in_rom $short_app_name
+
+		if test $include_app = 1; then
+			echo "  adding custom app: $short_app_name"
+			cp $custom_app $target_rom_dir
+		fi
+
+	done
+}
+
+#
+# Remove app from ROM
+#
+trim_apps()
+{
+	get_rom_base_dir app
+	get_target_rom_dir app
+
+	for system_app in $target_rom_dir/*; do
+
+		! test -f $system_app && continue
+
+		app_name=${system_app%\.*}
+		short_app_name=${app_name#$target_rom_dir/}
+
+		include_app_in_rom $short_app_name
+
+		if test $include_app = 0; then
+			echo "  TODO: removing app: $short_app_name"
+			#rm -f $system_app
+		fi
+
+	done
+}
+
 
 # main()
 
@@ -449,16 +549,24 @@ add_into_rom csc    $rom_csc
 echo "done."
 
 add_custom_gps
-
 add_bootanimation $rom_bootanimation
+
+# merge custom system directories into the ROM
 merge_system_xbin
 merge_system_bin
 merge_system_lib
 merge_system_etc
 
+# add the updater-scripts
 add_meta_inf
 
-add_root
+# Start removing apps from the ROM
+trim_apps
+
+# Add custom apps into the ROM
+add_custom_apps
+
+
 
 echo "done (for now!)"
 exit 0

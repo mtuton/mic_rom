@@ -1,10 +1,18 @@
 #!/bin/sh
 
-# Kernel, Modem & CSC
-rom_kernel="mic_kernel-v06.2"
-rom_modem="xxjq1"
-rom_csc="xsa"
-rom_bootanimation="android_rings"
+#
+# The name of the module to insert into the ROM
+#   - Kernel, Modem, CSC & Boot animation
+#
+get_module_name()
+{
+	case $1 in
+		kernel)		module_name="mic_kernel-v06.2" 	;;
+		modem)		module_name="xxjq1" 		;;
+		csc)		module_name="xsa"		;;
+		bootanimation)	module_name="android_rings"	;;
+	esac
+}
 
 # Apply custom GPS files
 include_custom_gps=0
@@ -26,97 +34,6 @@ include_custom_app_in_rom()
 	esac
 }
 
-
-
-# Swype
-include_Swype=0
-
-# Aldiko Standard eBook Reader
-include_Aldiko=0
-
-# Bluetooth Test Mode
-include_BluetoothTestMode=1
-
-# Days - widget for touchwiz launcher
-include_Days=0
-
-# Days - widget for touchwiz launcher
-include_DualClock=0
-
-# Facebook support. SNS Provider, Account, Unified Inbox
-#   - to have facebook/twitter/myspace accounts synced in your contacts and calendar and have all the updates of posts there
-include_Sns=1
-
-# Google Feedback
-include_GoogleFeedback=1
-
-# HTML Viewer
-include_HTMLViewer=1
-
-# Info Alarm
-include_InfoAlarm=1
-
-# Layar samsung
-include_Layar=0
-
-# Memo
-include_Memo=0
-
-# Mini Diary
-include_MiniDiary=0
-
-# Mtp Application - let Samsung Kies recognize and connect to your PDA
-include_Mtpapplication=1
-
-# Press Reader
-include_PressReader=0
-
-# Protips
-include_Protips=0
-
-# Samsung All Share - wireless communication with other Samsung dlna compatible devices
-include_Dlna=0
-
-# Samsung Apps
-include_SamsungApps=0
-
-# Samsung Widget Calendar Clock - shows a calendar/clock on your homescreen
-include_SamsungWidget_CalendarClock=1
-
-# Samsung Widget Feed And Update - view rss feeds on your homescreen
-include_SamsungWidget_FeedAndUpdate=1
-
-# Samsung Widget Stock Clock - shows clock on your homescreen
-include_SamsungWidget_StockClock=1
-
-# Sim Toolkit
-include_Stk=0
-
-# Street View
-include_Street=1
-
-# ThinkDroid - ThinkFree Office
-include_Thinkdroid=1
-
-# TW (Touch Wiz) Live Wallpapers 
-include_TWLiveWallpapers=1
-
-# Voice Recorder
-include_VoiceRecorder=1
-
-# Voice Search
-include_VoiceSearch=1
-
-# Wipereceiver 
-include_Wipereceiver=1
-
-# Write and Go
-include_WriteandGo=0
-
-# YouTube
-include_YouTube=1
-
-
 #
 # Which apps to include in the ROM
 #
@@ -128,9 +45,46 @@ include_YouTube=1
 include_app_in_rom()
 {
 	case $1 in
-		aldiko-standard-1.2.6.1-samsung-s1)	include_app=0 ;;
-		YouTube)				include_app=1 ;;
-		*)					include_app=1 ;;
+		aldiko-standard-1.2.6.1-samsung-s1)	include_app=0 ;; # Aldiko Standard eBook reader
+		BlueToothTestMode)			include_app=1 ;; # Blue Test Mode
+		BuddiesNow)				include_app=0 ;; # Buddies Now - widget for touchwiz launcher
+		Days)					include_app=0 ;; # Days - widget for touchwiz launcher
+		Dlna)					include_app=0 ;; # Samsung All Share - wireless communication with other 
+									 #   Samsung dlna compatible devices
+		DualClock)				include_app=0 ;; # Dual Clock - have two clocks on your homescreen for different timezones
+		GoogleFeedback)				include_app=0 ;; # Google Feedback
+		HTMLViewer)				include_app=1 ;; # HTML Viewer
+		InfoAlarm)				include_app=1 ;; # Info Alarm (Daily Briefing)
+		Layar-samsung)				include_app=1 ;; # Layar
+		Memo)					include_app=1 ;; # Memo
+		MiniDiary)				include_app=0 ;; # Mini Diary
+		MtpApplication)				include_app=1 ;; # Mtp Application - let Samsung Kies recognize and connect to your PDA
+		PhoneSetupWizard)			include_app=0 ;; # Run Setup Wizard on boot (always remove this from ROM)
+		PressReader)				include_app=0 ;; # Press Reader
+		Protips)				include_app=0 ;; # Protime (useless app)
+		SamsungApps)				include_app=0 ;; # Samsung Apps
+		SamsungWidget_CalendarClock)		include_app=1 ;; # Samsung Widget Calendar Clock - shows a calendar/clock on your homescreen
+		SamsungWidget_FeedAndUpdate)		include_app=1 ;; # Samsung Widget Feed And Update - view rss feeds on your homescreen
+		SamsungWidget_StockClock)		include_app=1 ;; # Samsung Widget Stock Clock - shows clock on your homescreen
+		SnsAccount)				include_app=1 ;; # Facebook support. SNS Provider, Account, Unified Inbox
+		SnsProvider)				include_app=1 ;; #   - to have facebook/twitter/myspace accounts synced in 
+									 #     your contacts and calendar and have all the updates of posts there
+		Stk)					include_app=0 ;; # Sim Toolkit
+		Street)					include_app=1 ;; # Street View (part of Google Maps)
+		Swype)					include_app=0 ;; # Swype (ensure that the Swype lib files are also removed)
+		thinkdroid)				include_app=1 ;; # ThinkDriod - Think Office Free
+		TwWallpaperChooser)			include_app=1 ;; # TW (TouchWiz) Live Wallpapers
+		TATLiveWallpaperBeach)			include_app=1 ;; #   "
+		TATLiveWallpapersAurora)		include_app=1 ;; #   "
+		TATLiveWallpapersBlueSea)		include_app=1 ;; #   "
+		VoiceRecorder)				include_app=1 ;; # Voice Recorder
+		VoiceSearch)				include_app=1 ;; # Voice Search
+		wipereceiver)				include_app=1 ;; # Wipereceiver (Samsung Dive)
+		MobileTrackerEngineTwo)			include_app=1 ;; #    "
+		MobileTrackerUI)			include_app=1 ;; #    "
+		WriteandGo)				include_app=0 ;; # Write and Go
+		YouTube)				include_app=1 ;; # YouTube
+		*)					include_app=1 ;; # default - include app in ROM
 	esac
 }
 
@@ -149,13 +103,14 @@ get_rom_base_dir()
 {
 	# ROM base location
 	case $1 in
-		data)		rom_base_dir="$rom_base/data"   ;;
+		data)		rom_base_dir="$custom/data"     ;;
+		data-app)	rom_base_dir="$custom/data/app" ;;
 		system)		rom_base_dir="$rom_base/system" ;;
 		updates)	rom_base_dir="$custom/updates"  ;;
 		kernel)		rom_base_dir="$custom/kernel"   ;;
 		modem)		rom_base_dir="$custom/modem"	;;
 		csc)		rom_base_dir="$custom/csc"	;;
-		gps)		rom_base_dir="$custom/gps/system"  ;;
+		gps)		rom_base_dir="$custom/gps/system"    ;;
 		bootanimation)	rom_base_dir="$custom/bootanimation" ;;
 		xbin)		rom_base_dir="$custom/system-xbin" ;;
 		bin)		rom_base_dir="$custom/system-bin"  ;;
@@ -173,13 +128,14 @@ get_target_rom_dir()
 {
 	# target ROM location
 	case $1 in
-		data)		target_rom_dir="$target_rom/data"    ;;
-		system)		target_rom_dir="$target_rom/system"  ;;
-		updates)	target_rom_dir="$target_rom/updates" ;;
-		kernel)		target_rom_dir="$target_rom/updates" ;;
-		modem)		target_rom_dir="$target_rom/updates" ;;
-		csc)		target_rom_dir="$target_rom/system"  ;;
-		gps)		target_rom_dir="$target_rom/system"  ;;
+		data)		target_rom_dir="$target_rom/data"     ;;
+		data-app)	target_rom_dir="$target_rom/data/app" ;;
+		system)		target_rom_dir="$target_rom/system"   ;;
+		updates)	target_rom_dir="$target_rom/updates"  ;;
+		kernel)		target_rom_dir="$target_rom/updates"  ;;
+		modem)		target_rom_dir="$target_rom/updates"  ;;
+		csc)		target_rom_dir="$target_rom/system"   ;;
+		gps)		target_rom_dir="$target_rom/system"   ;;
 		bootanimation)	target_rom_dir="$target_rom/system/media" ;;
 		xbin)		target_rom_dir="$target_rom/system/xbin"  ;;
 		bin)		target_rom_dir="$target_rom/system/bin"   ;;
@@ -196,20 +152,9 @@ get_target_rom_dir()
 remove_file()
 {
 	file=$1
-	echo -n "  removing: $file "
+	#echo -n "  removing: $file "
 	rm -f "$file"
-	echo "done."
-}
-
-#
-# Removes an app from the ROM
-#
-remove_app()
-{
-	file="rom/system/app/$1"
-	echo -n "  removing: $file "
-	rm -f "$file"
-	echo "done."
+	#echo "done."
 }
 
 #
@@ -355,18 +300,17 @@ add_custom_gps()
 #
 add_bootanimation()
 {
-	name=$1
-
 	get_rom_base_dir bootanimation
 	get_target_rom_dir bootanimation
+	get_module_name bootanimation
 
-	custom_file="$rom_base_dir/$name/bootanimation.zip"
+	custom_file="$rom_base_dir/$module_name/bootanimation.zip"
 
 	echo "  adding: bootanimation"
 	if test -e $custom_file; then
 		cp $custom_file $target_rom_dir
 	else
-		echo "ERROR: cannot find bootanimation: $name in $custom_file"
+		echo "ERROR: cannot find bootanimation: $module_name in $custom_file"
 		exit 1
 	fi
 }
@@ -378,31 +322,21 @@ add_bootanimation()
 add_into_rom()
 {
 	function=$1
-	name=$2
+	get_module_name $function
 	case $function in
 		kernel)		
-			echo "  adding kernel: $name"
-			add_kernel $name
+			echo "  adding kernel: $module_name"
+			add_kernel $module_name
 			;;
 		modem)		
-			echo "  adding modem : $name" 
-			add_modem $name
+			echo "  adding modem : $module_name" 
+			add_modem $module_name
 			;;
 		csc)		
-			echo "  adding csc   : $name" 
-			add_csc $name
+			echo "  adding csc   : $module_name" 
+			add_csc $module_name
 			;;
 	esac	
-}
-
-#
-# Add root
-#
-add_root()
-{
-	echo "TODO: add Superuser app"
-	# add_custom_app Superuser
-	# add_system_xbin
 }
 
 #
@@ -458,6 +392,21 @@ merge_system_etc()
 }
 
 #
+# Merge custom data directory with ROM data directory
+#
+merge_rom_data()
+{
+	get_rom_base_dir data
+	get_target_rom_dir data
+
+	if test -d $rom_base_dir; then
+		! test -d $target_rom_dir && mkdir -p $target_rom_dir
+		cp -rp $rom_base_dir/* $target_rom_dir
+	fi
+}
+
+
+#
 # Add META-INF scripts
 #
 add_meta_inf()
@@ -511,6 +460,16 @@ add_custom_apps()
 }
 
 #
+# Cleanup Swype
+#
+cleanup_swype()
+{
+	get_target_rom_dir lib
+	include_app_in_rom Swype
+	test $include_app = 0 && remove_file $target_rom_dir/libSwypeCore.so
+}
+
+#
 # Remove app from ROM
 #
 trim_apps()
@@ -528,11 +487,81 @@ trim_apps()
 		include_app_in_rom $short_app_name
 
 		if test $include_app = 0; then
-			echo "  TODO: removing app: $short_app_name"
-			#rm -f $system_app
+			rm -f $target_rom_dir/$short_app_name.apk
+			rm -f $target_rom_dir/$short_app_name.odex
 		fi
 
 	done
+}
+
+#
+# These files are all symlinks in RFS - we'll re-create them when installing the ROM
+#
+remove_rfs_symlinks()
+{
+	get_target_rom_dir bin
+	remove_file $target_rom_dir/cat
+	remove_file $target_rom_dir/chmod
+	remove_file $target_rom_dir/chown
+	remove_file $target_rom_dir/cmp
+	remove_file $target_rom_dir/date
+	remove_file $target_rom_dir/dd
+	remove_file $target_rom_dir/df
+	remove_file $target_rom_dir/dmesg
+	remove_file $target_rom_dir/getevent
+	remove_file $target_rom_dir/getprop
+	remove_file $target_rom_dir/hd
+	remove_file $target_rom_dir/id
+	remove_file $target_rom_dir/ifconfig
+	remove_file $target_rom_dir/iftop
+	remove_file $target_rom_dir/insmod
+	remove_file $target_rom_dir/ioctl
+	remove_file $target_rom_dir/ionice
+	remove_file $target_rom_dir/kill
+	remove_file $target_rom_dir/ln
+	remove_file $target_rom_dir/log
+	remove_file $target_rom_dir/ls
+	remove_file $target_rom_dir/lsmod
+	remove_file $target_rom_dir/mkdir
+	remove_file $target_rom_dir/mount
+	remove_file $target_rom_dir/mv
+	remove_file $target_rom_dir/nandread
+	remove_file $target_rom_dir/netstat
+	remove_file $target_rom_dir/newfs_msdos
+	remove_file $target_rom_dir/notify
+	remove_file $target_rom_dir/printenv
+	remove_file $target_rom_dir/ps
+	remove_file $target_rom_dir/reboot
+	remove_file $target_rom_dir/renice
+	remove_file $target_rom_dir/rm
+	remove_file $target_rom_dir/rmdir
+	remove_file $target_rom_dir/rmmod
+	remove_file $target_rom_dir/route
+	remove_file $target_rom_dir/schedtop
+	remove_file $target_rom_dir/sendevent
+	remove_file $target_rom_dir/setconsole
+	remove_file $target_rom_dir/setprop
+	remove_file $target_rom_dir/sleep
+	remove_file $target_rom_dir/smd
+	remove_file $target_rom_dir/start
+	remove_file $target_rom_dir/stop
+	remove_file $target_rom_dir/sync
+	remove_file $target_rom_dir/top
+	remove_file $target_rom_dir/umount
+	remove_file $target_rom_dir/vmstat
+	remove_file $target_rom_dir/watchprops
+	remove_file $target_rom_dir/wipe
+	remove_file $target_rom_dir/dumpmesg
+	remove_file $target_rom_dir/csview
+}
+
+zip_up_rom()
+{
+	echo "Creating ROM zip file..."
+	zipfile_name="mic_rom-NEW.zip"
+	(cd $target_rom; zip -qr $zipfile_name ./*)
+	test -f $target_rom/$zipfile_name && mv $target_rom/$zipfile_name .
+	echo "ROM is in file: $zipfile_name"
 }
 
 
@@ -543,164 +572,53 @@ create_empty_target_rom
 bulk_populate_rom
 
 # adding: kernel, modem & csc..."
-add_into_rom kernel $rom_kernel
-add_into_rom modem  $rom_modem
-add_into_rom csc    $rom_csc
+#add_into_rom kernel $rom_kernel
+#add_into_rom modem  $rom_modem
+#add_into_rom csc    $rom_csc
+add_into_rom kernel
+add_into_rom modem
+add_into_rom csc
 echo "done."
 
+echo "Adding custom GPS and bootanimation..."
 add_custom_gps
-add_bootanimation $rom_bootanimation
+#add_bootanimation $rom_bootanimation
+add_bootanimation
 
 # merge custom system directories into the ROM
 merge_system_xbin
 merge_system_bin
 merge_system_lib
 merge_system_etc
+merge_rom_data
 
 # add the updater-scripts
 add_meta_inf
-
-# Start removing apps from the ROM
-trim_apps
-
-# Add custom apps into the ROM
-add_custom_apps
-
-
-
-echo "done (for now!)"
-exit 0
-
-
-#
-# Add custom apps to the ROM
-#
-echo "Adding custom apps"
-
-echo -n "  adding: Email-iPhone app..."
-cp customisations/custom-apps/Email.apk rom/system/app
 echo "done."
 
+echo "Trimming the ROM..."
+# Start removing apps from the ROM
+trim_apps
+cleanup_swype
+echo "done."
 
-#
-# Remove apps from the ROM
-#
-echo "Trimming the ROM"
+echo "Adding custom applications..."
+# Add custom apps into the ROM
+add_custom_apps
+echo "done."
 
-# Swype (I'm using the beta version instead)
-remove_app Swype.apk
-remove_file rom/system/lib/libSwypeCode.so
-
-# Aldiko Standard
-#remove_app aldiko-standard-1.2.6.1-samsung-s1.apk
-
-# Bluetooth Test Mode
-#remove_app BluetoothTestMode.apk
-
-# Buddies Now - widget for touchwiz launcher
-remove_app BuddiesNow.apk
-
-# Days - widget for touchwiz launcher
-remove_app Days.apk
-
-# Dual Clock - have two clocks on your homescreen for different timezones
-remove_app DualClock.apk
-
-# Facebook support. SNS Provider, Account, Unified Inbox
-#   - to have facebook/twitter/myspace accounts synced in your contacts and calendar and have all the updates of posts there
-#remove_app SnsAccount.apk
-#remove_app SnsProvider.apk
-#remove_app SnsAccount.apk
-#remove_app SnsProvider.apk
-
-# Google Feedback
-remove_app GoogleFeedback.apk
-
-# HTML Viewer
-#remove_app HTMLViewer.apk
-
-# Info Alarm
-#remove_app InfoAlarm.apk
-
-# Layar samsung
-#remove_app Layar-samsung.apk
-
-# Memo
-#remove_app Memo.apk
-
-# Mini Diary
-#remove_app MiniDiary.apk
-
-# Mtp Application - let Samsung Kies recognize and connect to your PDA
-#remove_app Mtpapplication.apk
-
-# Press Reader
-remove_app PressReader.apk
-
-# Protips
-remove_app Protips.apk
-
-# Samsung All Share - wireless communication with other Samsung dlna compatible devices
-remove_app Dlna.apk
-
-# Samsung Apps
-remove_app SamsungApps.apk
-
-# Samsung Widget Calendar Clock - shows a calendar/clock on your homescreen
-#remove_app SamsungWidget_CalendarClock.apk
-
-# Samsung Widget Feed And Update - view rss feeds on your homescreen
-#remove_app SamsungWidget_FeedAndUpdate.apk
-
-# Samsung Widget Stock Clock - shows clock on your homescreen
-#remove_app SamsungWidget_StockClock.apk
-
-# Sim Toolkit
-remove_app Stk.apk
-
-# Street View
-#remove_app Street.apk
-
-# ThinkDroid - ThinkFree Office
-#remove_app Thinkdroid.apk
-
-# TW (Touch Wiz) Live Wallpapers 
-#remove_app TwWallpaperChooser.apk
-#remove_app TATLiveWallpaperBeach.apk
-#remove_app TATLiveWallpapersAurora.apk
-#remove_app TATLiveWallpapersBlueSea.apk
-
-# Voice Recorder
-#remove_app VoiceRecorder.apk
-
-# Voice Search
-#remove_app VoiceSearch.apk
-
-# Wipereceiver 
-#remove_app wipereceiver.apk
-#remove_app MobileTrackerEngineTwo.apk
-#remove_app MobileTrackerUI.apk
-
-# Write and Go
-remove_app WriteandGo.apk
-
-# YouTube
-#remove_app YouTube.apk
-
-
-#
-# Always remove the following apps and files
-#
-
-# PhoneSetupWizard - otherwise we'll have to go through the setup each time we load a new ROM
-remove_app PhoneSetupWizard.apk
-
-# autorun.iso
-remove_file rom/system/etc/autorun.iso
+echo "Additional cleanup (removing autorun and startup sounds)... "
+# remove autorun.iso
+get_target_rom_dir etc
+rm -f $target_rom_dir/autorun.iso
 
 # startup sounds
-remove_file rom/system/etc/PowerOn.wav
-remove_file rom/system/etc/PowerOn.snd
+remove_file $target_rom_dir/PowerOn.wav
+remove_file $target_rom_dir/PowerOn.snd
+
+# battery notification tone - removes sounds when the battery is full (keeps waking me up)
+get_target_rom_dir system
+remove_file $target_rom_dir/media/audio/ui/TW_Battery_caution.ogg
 
 # battery notification tone - removes sounds when the battery is full (keeps waking me up)
 remove_file rom/system/media/audio/ui/TW_Battery_caution.ogg
@@ -712,63 +630,15 @@ remove_file rom/system/media/audio/ui/TW_Battery_caution.ogg
 # All these files will be created as symlinks when the ROM is installed
 #
 echo "Removing symlinks (will be re-created when installing the ROM)"
-remove_file rom/system/zipalign.log
-remove_file rom/system/bin/cat
-remove_file rom/system/bin/chmod
-remove_file rom/system/bin/chown
-remove_file rom/system/bin/cmp
-remove_file rom/system/bin/date
-remove_file rom/system/bin/dd
-remove_file rom/system/bin/df
-remove_file rom/system/bin/dmesg
-remove_file rom/system/bin/getevent
-remove_file rom/system/bin/getprop
-remove_file rom/system/bin/hd
-remove_file rom/system/bin/id
-remove_file rom/system/bin/ifconfig
-remove_file rom/system/bin/iftop
-remove_file rom/system/bin/insmod
-remove_file rom/system/bin/ioctl
-remove_file rom/system/bin/ionice
-remove_file rom/system/bin/kill
-remove_file rom/system/bin/ln
-remove_file rom/system/bin/log
-remove_file rom/system/bin/ls
-remove_file rom/system/bin/lsmod
-remove_file rom/system/bin/mkdir
-remove_file rom/system/bin/mount
-remove_file rom/system/bin/mv
-remove_file rom/system/bin/nandread
-remove_file rom/system/bin/netstat
-remove_file rom/system/bin/newfs_msdos
-remove_file rom/system/bin/notify
-remove_file rom/system/bin/printenv
-remove_file rom/system/bin/ps
-remove_file rom/system/bin/reboot
-remove_file rom/system/bin/renice
-remove_file rom/system/bin/rm
-remove_file rom/system/bin/rmdir
-remove_file rom/system/bin/rmmod
-remove_file rom/system/bin/route
-remove_file rom/system/bin/schedtop
-remove_file rom/system/bin/sendevent
-remove_file rom/system/bin/setconsole
-remove_file rom/system/bin/setprop
-remove_file rom/system/bin/sleep
-remove_file rom/system/bin/smd
-remove_file rom/system/bin/start
-remove_file rom/system/bin/stop
-remove_file rom/system/bin/sync
-remove_file rom/system/bin/top
-remove_file rom/system/bin/umount
-remove_file rom/system/bin/vmstat
-remove_file rom/system/bin/watchprops
-remove_file rom/system/bin/wipe
-remove_file rom/system/bin/dumpmesg
-remove_file rom/system/bin/csview
-# symlinks removed
+get_target_rom_dir system
+remove_file $target_rom_dir/zipalign.log
 
-# Now we're done
-echo "ROM almost complete, ZIP it up and install using CWM."
+# symlinks removed
+remove_rfs_symlinks
+
+# zip up the ROM
+zip_up_rom
+
+echo "done!"
 
 

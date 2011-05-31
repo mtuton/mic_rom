@@ -1,149 +1,92 @@
-Create Custom ROM
+Create "Cook" Custom ROM
 
+DIRECTORY STRUCTURE
+rom		- location of the newly "cooked" ROM
+rom_bases/rom 	- location of original ROM used to build custom ROM from.
+customisations 	- directory containing all the modification to merge with the ROM
+
+Bacis instructions
 1. Deodex the ROM
 2. Run the script to apply the customisations to the ROM
-3. ZIP the ROM directory and apply to device using CWM recovery
+3. Copy the resultant ZIP file to the phone
+4. Use CWM to install onto the phone
 
+customisations complete file listing below.
 
-USAGE
-TODO: describe the directory structure required.
-
-
-TODO: After the usage/installation details are added, the following information can be removed.
-
-Detail on customisations made below.
-
-Custom components
-
-The following contains the details for customising the ROM.
-
-*** SYSTEM FILES ***
-
-Kernel & Modem
-- copy file in kernal & modem fodler into the /updates folder
-    - Kernel - mic_kernel v06
-    - Modem  - XXJQ1
-
-CSC
-- copy csc-system files into /system and /system/csc folders
-
-GPS
-- copy gps files into /system folder
-
-Bootanimation
-- copy bootanimation.zip into /system/media folder
-
-Root (busybox, su & Superuser.apk)
-- copy system files into /system
-- /system/xbin
-- /system/app
-
-zipalign
-- copy system-bin files into /system/bin folder
-
-init.d
-- copy init.d files into /system/etc
-
-armeabi-v7a
-- copy lib/armeabi-v7a folder into /system/lib
-
- ** Deodex the ROM now **
-
-
-*** APPLICATIONS ***
-
-Email
-- ROM needs to be deodexed before inserting this app into ROM
-- copy custom-apps/Email.apk into /system/app
-
-
-*** TRIM THE ROM ***
-
-Trim the ROM
-- remove the following files
-- Swype
-    - /system/app/Swype.apk
-    - /system/lib/libSwypeCode.so
-
-- Protips
-    - /system/apps/Protips.apk
-
-- Samsung All Share
-    - /system/app/Dlna.apk
-
-- STK - Sim Toolkit
-    - /system/app/Stk.apk
-
-- PhoneSetupWizard
-    - /system/app/PhoneSetupWizard.apk
-
-- PressReader
-    - /system/app/PressReader.apk
-
-- GoogleFeedback
-    - /system/app/GoogleFeedback.apk
-
-- autorun.iso
-    - /system/etc/autorun.iso
-
-- startup sounds
-    - /system/etc/PowerOn.wav
-    - /system/etc/PowerOn.snd
-
-*** CLEANUP ***
-
-Remove the following files
-
-rm system/zipalign.log
-rm system/bin/cat
-rm system/bin/chmod
-rm system/bin/chown
-rm system/bin/cmp
-rm system/bin/date
-rm system/bin/dd
-rm system/bin/df
-rm system/bin/dmesg
-rm system/bin/getevent
-rm system/bin/getprop
-rm system/bin/hd
-rm system/bin/id
-rm system/bin/ifconfig
-rm system/bin/iftop
-rm system/bin/insmod
-rm system/bin/ioctl
-rm system/bin/ionice
-rm system/bin/kill
-rm system/bin/ln
-rm system/bin/log
-rm system/bin/ls
-rm system/bin/lsmod
-rm system/bin/mkdir
-rm system/bin/mount
-rm system/bin/mv
-rm system/bin/nandread
-rm system/bin/netstat
-rm system/bin/newfs_msdos
-rm system/bin/notify
-rm system/bin/printenv
-rm system/bin/ps
-rm system/bin/reboot
-rm system/bin/renice
-rm system/bin/rm
-rm system/bin/rmdir
-rm system/bin/rmmod
-rm system/bin/route
-rm system/bin/schedtop
-rm system/bin/sendevent
-rm system/bin/setconsole
-rm system/bin/setprop
-rm system/bin/sleep
-rm system/bin/smd
-rm system/bin/start
-rm system/bin/stop
-rm system/bin/sync
-rm system/bin/top
-rm system/bin/umount
-rm system/bin/vmstat
-rm system/bin/watchprops
-rm system/bin/wipe
-
+./META-INF
+./META-INF/MANIFEST.MF
+./META-INF/com
+./META-INF/com/google
+./META-INF/com/google/android
+./META-INF/com/google/android/update-binary
+./META-INF/com/google/android/updater-script
+./META-INF/CERT.SF
+./META-INF/CERT.RSA
+./updates
+./updates/redbend_ua
+./gps
+./gps/data
+./gps/data/gps
+./gps/data/gps/secgps.conf
+./gps/system
+./gps/system/etc
+./gps/system/etc/jupiter.xml
+./gps/system/etc/gps.conf
+./gps/system/bin
+./gps/system/bin/gpsd
+./gps/system/bin/gpsd/glgps_samsungJupiter
+./app
+./app/Superuser.copy.apk
+./app/email-iphone-xwjs8
+./app/email-iphone-xwjs8/Email.apk
+./app/Email.apk
+./app/Superuser.apk
+./app/.gitignore
+./app/email-iphone-xwjsd
+./app/email-iphone-xwjsd/Email.apk
+./system-bin
+./system-bin/.gitignore
+./system-bin/zipalign
+./csc
+./csc/xsa
+./csc/xsa/CSCFiles.txt
+./csc/xsa/csc
+./csc/xsa/csc/feature.xml
+./csc/xsa/csc/others.xml
+./csc/xsa/csc/contents.db
+./csc/xsa/csc/sales_code.dat
+All customisations to the ROM are stored in a directory called "customisations".
+./csc/xsa/csc/isnew_csc.txt
+./csc/xsa/csc/customer.xml
+./csc/xsa/SW_Configuration.xml
+./csc/xsa/CSCVersion.txt
+./data
+./data/app
+./data/app/placeholder
+./data/.gitignore
+./system-etc
+./system-etc/init.d
+./system-etc/init.d/S70zipalign
+./system-etc/init.d/S99complete
+./system-etc/init.d/S01sysctl
+./modem
+./modem/xxjq1
+./modem/xxjq1/modem.bin
+./modem/.gitignore
+./system-lib
+./system-lib/armeabi-v7a
+./system-lib/armeabi-v7a/libjnigraphics.so
+./system-lib/armeabi-v7a/libBlurEffect.so
+./system-lib/.gitignore
+./bootanimation
+./bootanimation/android_rings
+./bootanimation/android_rings/bootanimation.zip
+./bootanimation/.gitignore
+./bootanimation/bootanimation.zip
+./system-xbin
+./system-xbin/busybox
+./system-xbin/su
+./system-xbin/.gitignore
+./kernel
+./kernel/mic_kernel-v06.2
+./kernel/mic_kernel-v06.2/zImage

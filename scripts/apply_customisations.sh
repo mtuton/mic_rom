@@ -123,7 +123,7 @@ include_YouTube=1
 #  1 - include app in the ROM
 #  0 - do not include app in the ROM
 #
-#  default is to include the app in the ROM
+#  default is to leave the app in the ROM
 #
 include_app_in_rom()
 {

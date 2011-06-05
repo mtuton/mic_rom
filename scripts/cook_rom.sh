@@ -7,10 +7,10 @@
 get_module_name()
 {
 	case $1 in
-		kernel)		module_name="mic_kernel-v06.2" 	;;
-		modem)		module_name="xxjq1" 		;;
+		kernel)		module_name="kernel" 		;;
+		modem)		module_name="modem" 		;;
 		csc)		module_name="xsa"		;;
-		bootanimation)	module_name="android_rings"	;;
+		bootanimation)	module_name="bootanimation"	;;
 	esac
 }
 
@@ -28,7 +28,7 @@ include_custom_gps=0
 include_custom_app_in_rom()
 {
 	case $1 in
-		Email)		include_app=1 ;;
+		Email)		include_app=0 ;;
 		Superuser)	include_app=1 ;;
 		*)		include_app=0 ;;
 	esac
@@ -52,10 +52,11 @@ include_app_in_rom()
 		Dlna)					include_app=0 ;; # Samsung All Share - wireless communication with other 
 									 #   Samsung dlna compatible devices
 		DualClock)				include_app=0 ;; # Dual Clock - have two clocks on your homescreen for different timezones
+		Email)					include_app=0 ;; # this will be replaced by a custom Email app
 		GoogleFeedback)				include_app=0 ;; # Google Feedback
 		HTMLViewer)				include_app=1 ;; # HTML Viewer
-		InfoAlarm)				include_app=1 ;; # Info Alarm (Daily Briefing)
-		Layar-samsung)				include_app=1 ;; # Layar
+		InfoAlarm)				include_app=0 ;; # Info Alarm (Daily Briefing)
+		Layar-samsung)				include_app=0 ;; # Layar
 		Memo)					include_app=1 ;; # Memo
 		MiniDiary)				include_app=0 ;; # Mini Diary
 		MtpApplication)				include_app=1 ;; # Mtp Application - let Samsung Kies recognize and connect to your PDA

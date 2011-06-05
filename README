@@ -6,7 +6,7 @@ rom_bases/rom 	- location of original ROM used to build custom ROM from.
 customisations 	- directory containing all the modification to merge with the ROM
 
 Bacis instructions
-1. Deodex the ROM
+1. Deodex the ROM (optional)
 2. Run the script to apply the customisations to the ROM
 3. Copy the resultant ZIP file to the phone
 4. Use CWM to install onto the phone

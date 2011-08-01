@@ -1,16 +1,69 @@
 #!/bin/sh
 
 #
+# default values
+#
+arg_kernel="kernel"
+arg_modem="modem"
+arg_csc="xsa"
+arg_banim="none"
+arg_rom_base="rom"
+
+arg_include_autorun="no"
+arg_include_startup_sounds="no"
+arg_include_battery_caution_tone="no"
+
+#
+# Display the usage of this program
+#
+print_usage()
+{
+	cat <<!
+Usage:
+  -k	- kernel (default is "kernel")
+  -m	- modem  (default is "modem")
+  -c	- CSC    (default is "xsa")
+  -b	- bootanimation (default is "none")
+  -s	- ROM base directory (located in rom_bases, default is "rom")
+  -r	- include autorun files (default is no, "yes" to include)
+  -o	- include startup sounds (default is no)
+  -t	- include battery notification tone (default is no)
+  -h	- this message
+
+!
+	exit
+}
+
+
+#
+# parse command line options
+#
+while getopts "s:k:m:c:b:r:o:t:h" opt
+do
+	case "$opt" in
+		k) arg_kernel="$OPTARG";;
+		m) arg_modem="$OPTARG";;
+		c) arg_csc="$OPTARG";;
+		b) arg_banim="$OPTARG";;
+		s) arg_rom_base="$OPTARG";;
+		r) arg_include_autorun="$OPTARG";;
+		o) arg_include_startup_sounds="$OPTARG";;
+		t) arg_include_battery_caution_tone="$OPTARG";;
+		h) print_usage;;
+	esac
+done
+
+#
 # The name of the module to insert into the ROM
 #   - Kernel, Modem, CSC & Boot animation
 #
 get_module_name()
 {
 	case $1 in
-		kernel)		module_name="kernel" 		;;
-		modem)		module_name="modem" 		;;
-		csc)		module_name="xsa"		;;
-		bootanimation)	module_name="bootanimation"	;;
+		kernel)		module_name=$arg_kernel		;;
+		modem)		module_name=$arg_modem 		;;
+		csc)		module_name=$arg_csc		;;
+		bootanimation)	module_name=$arg_banim		;;
 	esac
 }
 
@@ -45,11 +98,11 @@ include_custom_app_in_rom()
 include_app_in_rom()
 {
 	case $1 in
-		aldiko-standard-1.2.6.1-samsung-s1)	include_app=0 ;; # Aldiko Standard eBook reader
+		aldiko-standard-1.2.6.1-samsung-s1)	include_app=1 ;; # Aldiko Standard eBook reader
 		BlueToothTestMode)			include_app=1 ;; # Blue Test Mode
 		BuddiesNow)				include_app=0 ;; # Buddies Now - widget for touchwiz launcher
 		Days)					include_app=0 ;; # Days - widget for touchwiz launcher
-		Dlna)					include_app=0 ;; # Samsung All Share - wireless communication with other 
+		Dlna)					include_app=1 ;; # Samsung All Share - wireless communication with other 
 									 #   Samsung dlna compatible devices
 		DualClock)				include_app=0 ;; # Dual Clock - have two clocks on your homescreen for different timezones
 		Email)					include_app=0 ;; # this will be replaced by a custom Email app
@@ -60,7 +113,7 @@ include_app_in_rom()
 		Memo)					include_app=1 ;; # Memo
 		MiniDiary)				include_app=0 ;; # Mini Diary
 		MtpApplication)				include_app=1 ;; # Mtp Application - let Samsung Kies recognize and connect to your PDA
-		PhoneSetupWizard)			include_app=0 ;; # Run Setup Wizard on boot (always remove this from ROM)
+		PhoneSetupWizard)			include_app=1 ;; # Run Setup Wizard on boot (always remove this from ROM)
 		PressReader)				include_app=0 ;; # Press Reader
 		Protips)				include_app=0 ;; # Protime (useless app)
 		SamsungApps)				include_app=0 ;; # Samsung Apps
@@ -70,7 +123,7 @@ include_app_in_rom()
 		SnsAccount)				include_app=1 ;; # Facebook support. SNS Provider, Account, Unified Inbox
 		SnsProvider)				include_app=1 ;; #   - to have facebook/twitter/myspace accounts synced in 
 									 #     your contacts and calendar and have all the updates of posts there
-		Stk)					include_app=0 ;; # Sim Toolkit
+		Stk)					include_app=1 ;; # Sim Toolkit
 		Street)					include_app=1 ;; # Street View (part of Google Maps)
 		Swype)					include_app=0 ;; # Swype (ensure that the Swype lib files are also removed)
 		thinkdroid)				include_app=1 ;; # ThinkDriod - Think Office Free
@@ -92,7 +145,8 @@ include_app_in_rom()
 #################################################################################################
 
 # Details of the ROM we're using as the base
-rom_base="rom_bases/rom"
+#rom_base="rom_bases/rom"
+rom_base="rom_bases/$arg_rom_base"
 target_rom="rom"
 
 custom="customisations"
@@ -178,6 +232,8 @@ bulk_populate_rom()
 	# Add system directory from ROM base into the target ROM
 	get_rom_base_dir system 
 	get_target_rom_dir system
+
+	echo "  base rom: $arg_rom_base"
 
 	if ! test -d $rom_base_dir; then
 		echo "ROM base not found: $rom_base_dir"
@@ -287,7 +343,7 @@ add_custom_gps()
 		return
 	fi
 
-	echo "  adding custom gps"
+	echo "Adding custom gps..."
 	get_rom_base_dir gps
 	get_target_rom_dir gps
 
@@ -304,6 +360,12 @@ add_bootanimation()
 	get_rom_base_dir bootanimation
 	get_target_rom_dir bootanimation
 	get_module_name bootanimation
+
+	if test $module_name = "none"; then
+		return
+	fi
+
+	echo "Adding bootanimation..."
 
 	custom_file="$rom_base_dir/$module_name/bootanimation.zip"
 
@@ -496,6 +558,54 @@ trim_apps()
 }
 
 #
+# Remove autorun files
+#
+remove_autorun()
+{
+	if test $arg_include_autorun = "yes"; then
+		return
+	fi
+
+	echo "Removing autorun... "
+
+	get_target_rom_dir etc
+	rm -f $target_rom_dir/autorun.iso
+}
+
+#
+# Remove startup sounds
+#
+remove_startup_sounds()
+{
+	if test $arg_include_startup_sounds = "yes"; then
+		return
+	fi
+
+	echo "Removing startup sounds... "
+
+	get_target_rom_dir etc
+	remove_file $target_rom_dir/PowerOn.wav
+	remove_file $target_rom_dir/PowerOn.snd
+}
+
+#
+# Remove battery notification tone
+#
+remove_battery_caution_tone()
+{
+	if test $arg_include_battery_caution_tone = "yes"; then
+		return
+	fi
+
+	echo "Removing battery caution tone... "
+
+	get_target_rom_dir system
+	remove_file $target_rom_dir/media/audio/ui/TW_Battery_caution.ogg
+}
+
+
+
+#
 # These files are all symlinks in RFS - we'll re-create them when installing the ROM
 #
 remove_rfs_symlinks()
@@ -573,17 +683,13 @@ create_empty_target_rom
 bulk_populate_rom
 
 # adding: kernel, modem & csc..."
-#add_into_rom kernel $rom_kernel
-#add_into_rom modem  $rom_modem
-#add_into_rom csc    $rom_csc
 add_into_rom kernel
 add_into_rom modem
 add_into_rom csc
 echo "done."
 
-echo "Adding custom GPS and bootanimation..."
+#echo "Adding custom GPS and bootanimation..."
 add_custom_gps
-#add_bootanimation $rom_bootanimation
 add_bootanimation
 
 # merge custom system directories into the ROM
@@ -595,7 +701,6 @@ merge_rom_data
 
 # add the updater-scripts
 add_meta_inf
-echo "done."
 
 echo "Trimming the ROM..."
 # Start removing apps from the ROM
@@ -608,31 +713,27 @@ echo "Adding custom applications..."
 add_custom_apps
 echo "done."
 
-echo "Additional cleanup (removing autorun and startup sounds)... "
+# Additional cleanup (removing autorun and startup sounds)...
 # remove autorun.iso
-get_target_rom_dir etc
-rm -f $target_rom_dir/autorun.iso
+remove_autorun
 
 # startup sounds
-remove_file $target_rom_dir/PowerOn.wav
-remove_file $target_rom_dir/PowerOn.snd
+remove_startup_sounds
 
 # battery notification tone - removes sounds when the battery is full (keeps waking me up)
-get_target_rom_dir system
-remove_file $target_rom_dir/media/audio/ui/TW_Battery_caution.ogg
+remove_battery_caution_tone
 
-# battery notification tone - removes sounds when the battery is full (keeps waking me up)
-remove_file rom/system/media/audio/ui/TW_Battery_caution.ogg
 #
 # Finished trimming the ROM.
 #
+
+#get_target_rom_dir system
+#remove_file $target_rom_dir/zipalign.log
 
 #
 # All these files will be created as symlinks when the ROM is installed
 #
 echo "Removing symlinks (will be re-created when installing the ROM)"
-get_target_rom_dir system
-remove_file $target_rom_dir/zipalign.log
 
 # symlinks removed
 remove_rfs_symlinks

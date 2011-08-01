@@ -664,6 +664,8 @@ remove_rfs_symlinks()
 	remove_file $target_rom_dir/wipe
 	remove_file $target_rom_dir/dumpmesg
 	remove_file $target_rom_dir/csview
+	remove_file $target_rom_dir/uptime
+	remove_file $target_rom_dir/lsof
 }
 
 zip_up_rom()

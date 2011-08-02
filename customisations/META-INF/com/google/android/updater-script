@@ -3,45 +3,83 @@ ui_print(" ");
 ui_print("Started installation of custom ROM");
 ui_print(" ");
 
+mount("MTD", "system", "/system");
 ui_print("Formatting system");
 ui_print(" ");
 
 delete_recursive("/system");
 delete_recursive("/cache");
+show_progress(0.100000, 60);
 
 ui_print("Installing system files");
-show_progress(0.100000, 60);
+ui_print(" ");
+
 package_extract_dir("system", "/system");
-ui_print(" ");
-
-ui_print("Clearing dalvik-cache");
+symlink("dumpstate", "/system/bin/dumpcrash");
 delete_recursive("/data/dalvik-cache");
-ui_print(" ");
-
-ui_print("Clearing media databases");
-delete_recursive ("/dbdata/databases/com.android.providers.media");
-delete_recursive ("/dbdata/databases/com.cooliris.media");
-ui_print(" ");
-
+delete_recursive("/dbdata/databases/com.android.providers.media");
+delete_recursive("/dbdata/databases/com.cooliris.media");
 show_progress(0.100000, 10);
-ui_print("Creating symlinks and permissions");
-ui_print(" ");
 
-symlink("toolbox","/system/bin/cat","/system/bin/chmod","/system/bin/chown","/system/bin/cmp","/system/bin/date","/system/bin/dd",
-        "/system/bin/df","/system/bin/dmesg","/system/bin/getevent","/system/bin/getprop","/system/bin/hd","/system/bin/id",
-        "/system/bin/ifconfig","/system/bin/iftop","/system/bin/insmod","/system/bin/ioctl","/system/bin/ionice","/system/bin/kill",
-        "/system/bin/ln","/system/bin/log","/system/bin/ls","/system/bin/lsmod","/system/bin/mkdir","/system/bin/mount",
-        "/system/bin/mv","/system/bin/nandread","/system/bin/netstat","/system/bin/newfs_msdos","/system/bin/notify",
-        "/system/bin/printenv", "/system/bin/ps","/system/bin/reboot","/system/bin/renice","/system/bin/rm","/system/bin/rmdir",
-        "/system/bin/rmmod","/system/bin/route","/system/bin/schedtop","/system/bin/sendevent","/system/bin/setconsole",
-        "/system/bin/setprop","/system/bin/sleep","/system/bin/smd","/system/bin/start","/system/bin/stop","/system/bin/sync",
-        "/system/bin/top","/system/bin/umount","/system/bin/vmstat","/system/bin/watchprops","/system/bin/wipe","/system/bin/uptime",
-	"/system/bin/lsof");
+symlink("toolbox", "/system/bin/cat");
+symlink("toolbox", "/system/bin/chmod");
+symlink("toolbox", "/system/bin/chown");
+symlink("toolbox", "/system/bin/cmp");
+symlink("toolbox", "/system/bin/date");
+symlink("toolbox", "/system/bin/dd");
+symlink("toolbox", "/system/bin/df");
+symlink("toolbox", "/system/bin/dmesg");
+symlink("toolbox", "/system/bin/getevent");
+symlink("toolbox", "/system/bin/getprop");
+symlink("toolbox", "/system/bin/hd");
+symlink("toolbox", "/system/bin/id");
+symlink("toolbox", "/system/bin/ifconfig");
+symlink("toolbox", "/system/bin/iftop");
+symlink("toolbox", "/system/bin/insmod");
+symlink("toolbox", "/system/bin/ioctl");
+symlink("toolbox", "/system/bin/ionice");
+symlink("toolbox", "/system/bin/kill");
+symlink("toolbox", "/system/bin/ln");
+symlink("toolbox", "/system/bin/log");
+symlink("toolbox", "/system/bin/ls");
+symlink("toolbox", "/system/bin/lsmod");
+symlink("toolbox", "/system/bin/mkdir");
+symlink("toolbox", "/system/bin/mount");
+symlink("toolbox", "/system/bin/mv");
+symlink("toolbox", "/system/bin/nandread");
+symlink("toolbox", "/system/bin/netstat");
+symlink("toolbox", "/system/bin/newfs_msdos");
+symlink("toolbox", "/system/bin/notify");
+symlink("toolbox", "/system/bin/printenv");
+symlink("toolbox", "/system/bin/ps");
+symlink("toolbox", "/system/bin/reboot");
+symlink("toolbox", "/system/bin/renice");
+symlink("toolbox", "/system/bin/rm");
+symlink("toolbox", "/system/bin/rmdir");
+symlink("toolbox", "/system/bin/rmmod");
+symlink("toolbox", "/system/bin/route");
+symlink("toolbox", "/system/bin/schedtop");
+symlink("toolbox", "/system/bin/sendevent");
+symlink("toolbox", "/system/bin/setconsole");
+symlink("toolbox", "/system/bin/setprop");
+symlink("toolbox", "/system/bin/sleep");
+symlink("toolbox", "/system/bin/smd");
+symlink("toolbox", "/system/bin/start");
+symlink("toolbox", "/system/bin/stop");
+symlink("toolbox", "/system/bin/sync");
+symlink("toolbox", "/system/bin/top");
+symlink("toolbox", "/system/bin/umount");
+symlink("toolbox", "/system/bin/vmstat");
+symlink("toolbox", "/system/bin/watchprops");
+symlink("toolbox", "/system/bin/wipe");
+symlink("toolbox", "/system/bin/uptime");
+symlink("toolbox", "/system/bin/lsof");
 
-symlink("dumpstate","/system/bin/dumpmesg");
-symlink("debuggerd","/system/bin/csview");
+symlink("dumpstate", "/system/bin/dumpmesg");
+symlink("debuggerd", "/system/bin/csview");
 
-set_perm_recursive(0, 0, 0755, 0644, "system");
+set_perm_recursive(0, 0, 0755, 0644, "/system");
+set_perm_recursive(0, 0, 0777, 0777, "/system/etc/init.d");
 set_perm_recursive(0, 2000, 0755, 0755, "system/bin");
 set_perm_recursive(0, 0, 0755, 0755, "system/etc");
 set_perm(0, 3003, 02755, "/system/bin/netcfg");
@@ -51,16 +89,19 @@ set_perm(0, 0, 0755, "/system/etc/bluetooth");
 set_perm(1002, 1002, 0440, "/system/etc/dbus.conf");
 set_perm(1014, 2000, 0550, "/system/etc/dhcpcd/dhcpcd-run-hooks");
 set_perm(0, 2000, 0550, "/system/etc/init.goldfish.sh");
-set_perm_recursive(0, 0, 0777, 0777, "system/etc/init.d");
+set_perm_recursive(0, 0, 0777, 0777, system/etc/init.d);
 set_perm(0, 0, 04755, "/system/xbin/su");
 set_perm(0, 0, 04755, "/system/xbin/busybox");
 symlink("/system/xbin/su", "/system/bin/su");
 set_perm(0, 0, 04755, "/system/xbin/busybox");
+set_perm(0, 0, 0755, "/system/vendor/bin/gpsd");
+set_perm(0, 0, 0755, "/system/vendor/bin/launch_gps.sh");
 
 ui_print("Installing busybox");
 run_program("/system/xbin/busybox", "--install", "-s", "/system/xbin");
 ui_print(" ");
 
+mount("MTD", "userdata", "/data");
 ui_print("Copying data");
 ui_print(" ");
 package_extract_dir("data", "/data");
@@ -72,12 +113,17 @@ package_extract_dir("updates", "/tmp");
 
 show_progress(0.100000, 10);
 set_perm(0, 0, 0755, "/tmp/redbend_ua");
+
 ui_print("Flashing modem");
 ui_print(" ");
 run_program("/tmp/redbend_ua", "restore", "/tmp/modem.bin", "/dev/block/bml12");
+
 ui_print("Flashing kernel");
 ui_print(" ");
 run_program("/tmp/redbend_ua", "restore", "/tmp/zImage", "/dev/block/bml7");
 show_progress(1.000000, 0);
+
+unmount("/data");
+unmount("/system");
 
 ui_print("Installation of ROM is complete :)");

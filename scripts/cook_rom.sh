@@ -25,9 +25,9 @@ Usage:
   -c	- CSC    (default is "xsa")
   -b	- bootanimation (default is "none")
   -s	- ROM base directory (located in rom_bases, default is "rom")
-  -r	- include autorun files (default is no, "yes" to include)
-  -o	- include startup sounds (default is no)
-  -t	- include battery notification tone (default is no)
+  -r	- include autorun files (default is yes, "no" to remove)
+  -o	- include startup sounds (default is yes)
+  -t	- include battery notification tone (default is yes)
   -h	- this message
 
 !

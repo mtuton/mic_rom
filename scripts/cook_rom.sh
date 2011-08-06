@@ -9,9 +9,9 @@ arg_csc="xsa"
 arg_banim="none"
 arg_rom_base="rom"
 
-arg_include_autorun="no"
-arg_include_startup_sounds="no"
-arg_include_battery_caution_tone="no"
+arg_include_autorun="yes"
+arg_include_startup_sounds="yes"
+arg_include_battery_caution_tone="yes"
 
 #
 # Display the usage of this program

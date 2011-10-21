@@ -121,6 +121,7 @@ run_program("/tmp/redbend_ua", "restore", "/tmp/modem.bin", "/dev/block/bml12");
 ui_print("Flashing kernel");
 ui_print(" ");
 run_program("/tmp/redbend_ua", "restore", "/tmp/zImage", "/dev/block/bml7");
+run_program("/tmp/redbend_ua", "restore", "/tmp/zImage", "/dev/block/bml8");
 show_progress(1.000000, 0);
 
 unmount("/data");

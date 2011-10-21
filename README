@@ -11,6 +11,9 @@ Bacis instructions
 3. Copy the resultant ZIP file to the phone
 4. Use CWM to install onto the phone
 
+Script Usage
+# ./scripts/cook_rom.sh -k xxjvt -m xxjvt -c xsa -s xxjvt 
+
 customisations complete file listing below.
 
 ./META-INF

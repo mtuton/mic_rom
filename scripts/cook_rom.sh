@@ -116,7 +116,7 @@ include_app_in_rom()
 		PhoneSetupWizard)			include_app=1 ;; # Run Setup Wizard on boot (always remove this from ROM)
 		PressReader)				include_app=0 ;; # Press Reader
 		Protips)				include_app=0 ;; # Protime (useless app)
-		SamsungApps)				include_app=0 ;; # Samsung Apps
+		SamsungApps)				include_app=1 ;; # Samsung Apps
 		SamsungWidget_CalendarClock)		include_app=1 ;; # Samsung Widget Calendar Clock - shows a calendar/clock on your homescreen
 		SamsungWidget_FeedAndUpdate)		include_app=1 ;; # Samsung Widget Feed And Update - view rss feeds on your homescreen
 		SamsungWidget_StockClock)		include_app=1 ;; # Samsung Widget Stock Clock - shows clock on your homescreen

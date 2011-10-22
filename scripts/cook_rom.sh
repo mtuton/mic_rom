@@ -668,6 +668,13 @@ remove_rfs_symlinks()
 	remove_file $target_rom_dir/lsof
 }
 
+remove_placeholder_files()
+{
+	if test -d $target_rom; then
+		find $target_rom -name placeholder -size 0b -delete
+	fi
+}
+
 zip_up_rom()
 {
 	echo "Creating ROM zip file..."
@@ -739,6 +746,9 @@ echo "Removing symlinks (will be re-created when installing the ROM)"
 
 # symlinks removed
 remove_rfs_symlinks
+
+# remove "placeholder" files
+remove_placeholder_files
 
 # zip up the ROM
 zip_up_rom

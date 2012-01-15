@@ -1,0 +1,8 @@
+/system/csc/XEO/system/CSCVersion.txt
+/system/csc/XEO/system/CSCFiles.txt
+/system/csc/XEO/system/SW_Configuration.xml
+/system/csc/XEO/system/csc/customer.xml
+/system/csc/XEO/system/csc/others.xml
+/system/csc/XEO/system/csc/sales_code.dat
+/system/csc/XEO/system/csc/feature.xml
+/system/csc/XEO/system/csc/contents.db

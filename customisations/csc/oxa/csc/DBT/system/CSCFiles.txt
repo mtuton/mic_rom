@@ -1,0 +1,8 @@
+/system/csc/DBT/system/CSCVersion.txt
+/system/csc/DBT/system/CSCFiles.txt
+/system/csc/DBT/system/SW_Configuration.xml
+/system/csc/DBT/system/csc/customer.xml
+/system/csc/DBT/system/csc/others.xml
+/system/csc/DBT/system/csc/sales_code.dat
+/system/csc/DBT/system/csc/feature.xml
+/system/csc/DBT/system/csc/contents.db

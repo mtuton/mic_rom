@@ -1,0 +1,8 @@
+/system/csc/CPW/system/CSCVersion.txt
+/system/csc/CPW/system/CSCFiles.txt
+/system/csc/CPW/system/SW_Configuration.xml
+/system/csc/CPW/system/csc/customer.xml
+/system/csc/CPW/system/csc/others.xml
+/system/csc/CPW/system/csc/sales_code.dat
+/system/csc/CPW/system/csc/feature.xml
+/system/csc/CPW/system/csc/contents.db

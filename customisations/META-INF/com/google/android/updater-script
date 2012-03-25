@@ -108,6 +108,9 @@ package_extract_dir("data", "/data");
 set_perm(1000, 1010, 0771, "/data/app");
 show_progress(1.000000, 0);
 
+unmount("/data");
+unmount("/system");
+
 show_progress(0.100000, 60);
 
 package_extract_dir("updates", "/tmp");
@@ -115,17 +118,15 @@ show_progress(0.100000, 10);
 set_perm(0, 0, 0755, "/tmp/redbend_ua");
 set_perm(0, 0, 0777, "/tmp/redbend_ua");
 
-ui_print("Flashing modem");
-ui_print(" ");
-run_program("/tmp/redbend_ua", "restore", "/tmp/modem.bin", "/dev/block/bml12");
-set_perm(0, 0, 0777, "/tmp/redbend_ua");
-
 ui_print("Flashing kernel");
 run_program("/tmp/redbend_ua", "restore", "/tmp/zImage", "/dev/block/bml7");
 run_program("/tmp/redbend_ua", "restore", "/tmp/zImage", "/dev/block/bml8");
 show_progress(1.000000, 0);
 
-unmount("/data");
-unmount("/system");
+ui_print("Flashing modem");
+ui_print(" ");
+run_program("/tmp/redbend_ua", "restore", "/tmp/modem.bin", "/dev/block/bml12");
+set_perm(0, 0, 0777, "/tmp/redbend_ua");
+
 
 ui_print("Installation of ROM is complete :)");

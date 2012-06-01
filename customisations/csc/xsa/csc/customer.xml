@@ -1,10 +1,12 @@
-﻿<?xml  version="1.0" encoding="UTF-8" ?>
+<?xml  version="1.0" encoding="UTF-8" ?>
 <CustomerData>
   <GeneralInfo>
-    <CSCEdition>ED009</CSCEdition>
+    <CSCEdition>ED017</CSCEdition>
     <Country>Australia</Country>
+    <CountryISO>AU</CountryISO>
+    <Region>SEA</Region>
     <SalesCode>XSA</SalesCode>
-    <NbNetworkInfo>7</NbNetworkInfo>
+    <NbNetworkInfo>6</NbNetworkInfo>
     <NetworkInfo>
       <MCCMNC>50501</MCCMNC>
       <NetworkName>Telstra</NetworkName>
@@ -20,6 +22,7 @@
     <NetworkInfo>
       <MCCMNC>50502</MCCMNC>
       <NetworkName>Virgin Mobile</NetworkName>
+      <SPCode>9</SPCode>
     </NetworkInfo>
     <NetworkInfo>
       <MCCMNC>50506</MCCMNC>
@@ -28,56 +31,130 @@
     <NetworkInfo>
       <MCCMNC>50503</MCCMNC>
       <NetworkName>Crazy Johns</NetworkName>
-    </NetworkInfo>
-    <NetworkInfo>
-      <MCCMNC>50503</MCCMNC>
-      <NetworkName>GRLmobile</NetworkName>
+      <SPCode>823</SPCode>
     </NetworkInfo>
   </GeneralInfo>
   <Settings>
     <Main>
       <Network>
-        <NbFastDormancy>1</NbFastDormancy>
+        <NbFastDormancy>12</NbFastDormancy>
+        <FastDormancy>
+          <NetworkName>Telstra</NetworkName>
+          <FastDormancyEnableStatus>off</FastDormancyEnableStatus>
+          <LCDStatus>on</LCDStatus>
+        </FastDormancy>
+        <FastDormancy>
+          <NetworkName>Telstra</NetworkName>
+          <FastDormancyEnableStatus>off</FastDormancyEnableStatus>
+          <LCDStatus>off</LCDStatus>
+        </FastDormancy>
         <FastDormancy>
           <NetworkName>YES OPTUS</NetworkName>
           <FastDormancyEnableStatus>off</FastDormancyEnableStatus>
+          <LCDStatus>on</LCDStatus>
         </FastDormancy>
-        <AutoAttach>on</AutoAttach>
-        <NbSOSNumber>1</NbSOSNumber>
-        <SOSNumber>000, 112, 911</SOSNumber>
-        <NbSOSNumberNoSIM>1</NbSOSNumberNoSIM>
-        <SOSNumberNoSIM>08, 112, 110, 118, 119, 911, 999, 000</SOSNumberNoSIM>
+        <FastDormancy>
+          <NetworkName>YES OPTUS</NetworkName>
+          <FastDormancyEnableStatus>off</FastDormancyEnableStatus>
+          <LCDStatus>off</LCDStatus>
+        </FastDormancy>
+        <FastDormancy>
+          <NetworkName>vodafone AU</NetworkName>
+          <FastDormancyEnableStatus>on</FastDormancyEnableStatus>
+          <LCDStatus>on</LCDStatus>
+        </FastDormancy>
+        <FastDormancy>
+          <NetworkName>vodafone AU</NetworkName>
+          <FastDormancyEnableStatus>on</FastDormancyEnableStatus>
+          <LCDStatus>off</LCDStatus>
+        </FastDormancy>
+        <FastDormancy>
+          <NetworkName>Virgin Mobile</NetworkName>
+          <FastDormancyEnableStatus>off</FastDormancyEnableStatus>
+          <LCDStatus>on</LCDStatus>
+        </FastDormancy>
+        <FastDormancy>
+          <NetworkName>Virgin Mobile</NetworkName>
+          <FastDormancyEnableStatus>off</FastDormancyEnableStatus>
+          <LCDStatus>off</LCDStatus>
+        </FastDormancy>
+        <FastDormancy>
+          <NetworkName>3</NetworkName>
+          <FastDormancyEnableStatus>off</FastDormancyEnableStatus>
+          <LCDStatus>on</LCDStatus>
+        </FastDormancy>
+        <FastDormancy>
+          <NetworkName>3</NetworkName>
+          <FastDormancyEnableStatus>off</FastDormancyEnableStatus>
+          <LCDStatus>off</LCDStatus>
+        </FastDormancy>
+        <FastDormancy>
+          <NetworkName>Crazy Johns</NetworkName>
+          <FastDormancyEnableStatus>on</FastDormancyEnableStatus>
+          <LCDStatus>on</LCDStatus>
+        </FastDormancy>
+        <FastDormancy>
+          <NetworkName>Crazy Johns</NetworkName>
+          <FastDormancyEnableStatus>on</FastDormancyEnableStatus>
+          <LCDStatus>off</LCDStatus>
+        </FastDormancy>
+        <NbSOSNumber>3</NbSOSNumber>
+        <SOSNumber>000</SOSNumber>
+        <SOSNumber>112</SOSNumber>
+        <SOSNumber>911</SOSNumber>
         <AutoProfile>on</AutoProfile>
-        <AutoVoicemail>off</AutoVoicemail>
+        <AutoVoicemail>on</AutoVoicemail>
         <AutoEmailAccount>off</AutoEmailAccount>
         <AutoBookmark>off</AutoBookmark>
         <AutoLink>off</AutoLink>
         <AutoSyncML>off</AutoSyncML>
         <AutoFastDormancy>on</AutoFastDormancy>
+        <AutoWbAmr>off</AutoWbAmr>
+        <AutoFOTA>off</AutoFOTA>
       </Network>
       <Phone>
         <DefLanguage>english</DefLanguage>
         <DefLanguageNoSIM>english</DefLanguageNoSIM>
+        <DateTimeFormat>
+          <DateFormat>ddmmyyyy</DateFormat>
+        </DateTimeFormat>
       </Phone>
       <Security />
     </Main>
     <Messages>
+      <NbVoicemail>6</NbVoicemail>
+      <Voicemail>
+        <NetworkName>Telstra</NetworkName>
+        <TelNum>+61101</TelNum>
+      </Voicemail>
+      <Voicemail>
+        <NetworkName>YES OPTUS</NetworkName>
+        <TelNum>321</TelNum>
+      </Voicemail>
+      <Voicemail>
+        <NetworkName>vodafone AU</NetworkName>
+        <TelNum>121</TelNum>
+      </Voicemail>
+      <Voicemail>
+        <NetworkName>Virgin Mobile</NetworkName>
+        <TelNum>212</TelNum>
+      </Voicemail>
+      <Voicemail>
+        <NetworkName>3</NetworkName>
+        <TelNum>+61430005333</TelNum>
+      </Voicemail>
+      <Voicemail>
+        <NetworkName>Crazy Johns</NetworkName>
+        <TelNum>121</TelNum>
+      </Voicemail>
       <MMS>
-        <MmsSending>
-          <ReqDeliveryRep>off</ReqDeliveryRep>
-          <ReqReadRep>off</ReqReadRep>
-        </MmsSending>
         <MmsReceiving>
           <Home>auto</Home>
-          <Roaming>manual</Roaming>
         </MmsReceiving>
       </MMS>
     </Messages>
-    <SocialHub>
-      <SocialHubType>basic</SocialHubType>
-    </SocialHub>
     <Connections>
-      <NbProfileHandle>7</NbProfileHandle>
+      <NbProfileHandle>6</NbProfileHandle>
       <ProfileHandle>
         <NbNetProfile>2</NbNetProfile>
         <NetworkName>Telstra</NetworkName>
@@ -87,14 +164,8 @@
       <ProfileHandle>
         <NbNetProfile>2</NbNetProfile>
         <NetworkName>YES OPTUS</NetworkName>
-        <ProfBrowser>Optus Internet</ProfBrowser>
+        <ProfBrowser>Optus Yes Internet</ProfBrowser>
         <ProfMMS>Optus MMS</ProfMMS>
-      </ProfileHandle>
-      <ProfileHandle>
-        <NbNetProfile>2</NbNetProfile>
-        <NetworkName>vodafone AU</NetworkName>
-        <ProfBrowser>VF-AU Internet</ProfBrowser>
-        <ProfMMS>Vodafone PXT</ProfMMS>
       </ProfileHandle>
       <ProfileHandle>
         <NbNetProfile>2</NbNetProfile>
@@ -104,9 +175,9 @@
       </ProfileHandle>
       <ProfileHandle>
         <NbNetProfile>2</NbNetProfile>
-        <NetworkName>3</NetworkName>
-        <ProfBrowser>Planet 3</ProfBrowser>
-        <ProfMMS>3 MMS</ProfMMS>
+        <NetworkName>vodafone AU</NetworkName>
+        <ProfBrowser>Vodafone AU</ProfBrowser>
+        <ProfMMS>Vodafone PXT</ProfMMS>
       </ProfileHandle>
       <ProfileHandle>
         <NbNetProfile>2</NbNetProfile>
@@ -116,31 +187,21 @@
       </ProfileHandle>
       <ProfileHandle>
         <NbNetProfile>2</NbNetProfile>
-        <NetworkName>GRLmobile</NetworkName>
-        <ProfBrowser>GRL Internet</ProfBrowser>
-        <ProfMMS>GRL MMS</ProfMMS>
+        <NetworkName>3</NetworkName>
+        <ProfBrowser>Planet 3</ProfBrowser>
+        <ProfMMS>3 MMS</ProfMMS>
       </ProfileHandle>
-      <NbProfile>14</NbProfile>
+      <NbProfile>12</NbProfile>
       <Profile>
         <NetworkName>Telstra</NetworkName>
         <ProfileName>Telstra Internet</ProfileName>
-        <Proxy>
-          <EnableFlag>on</EnableFlag>
-          <ServAddr>10.1.1.181</ServAddr>
-          <Port>80</Port>
-        </Proxy>
-        <PSparam>
-          <APN>telstra.wap</APN>
-        </PSparam>
-      </Profile>
-      <Profile>
-        <NetworkName>3</NetworkName>
-        <ProfileName>Planet 3</ProfileName>
+        <Protocol>http</Protocol>
+        <MTUSize>1500</MTUSize>
         <Proxy>
           <EnableFlag>off</EnableFlag>
         </Proxy>
         <PSparam>
-          <APN>3services</APN>
+          <APN>telstra.wap</APN>
         </PSparam>
       </Profile>
       <Profile>
@@ -148,6 +209,8 @@
         <ProfileName>Telstra MMS</ProfileName>
         <URL>http://mmsc.telstra.com:8002</URL>
         <Auth>normal</Auth>
+        <Protocol>http</Protocol>
+        <MTUSize>1500</MTUSize>
         <Proxy>
           <EnableFlag>on</EnableFlag>
           <ServAddr>10.1.1.180</ServAddr>
@@ -162,6 +225,8 @@
         <ProfileName>Optus MMS</ProfileName>
         <URL>http://mmsc.optus.com.au:8002/</URL>
         <Auth>normal</Auth>
+        <Protocol>http</Protocol>
+        <MTUSize>1500</MTUSize>
         <Proxy>
           <EnableFlag>on</EnableFlag>
           <ServAddr>61.88.190.10</ServAddr>
@@ -172,94 +237,24 @@
         </PSparam>
       </Profile>
       <Profile>
-        <NetworkName>vodafone AU</NetworkName>
-        <ProfileName>Vodafone PXT</ProfileName>
-        <URL>http://pxt.vodafone.net.au/pxtsend</URL>
-        <Auth>none</Auth>
-        <Proxy>
-          <EnableFlag>on</EnableFlag>
-          <ServAddr>10.202.2.60</ServAddr>
-          <Port>8080</Port>
-        </Proxy>
-        <PSparam>
-          <APN>live.vodafone.com</APN>
-        </PSparam>
-      </Profile>
-      <Profile>
-        <NetworkName>Virgin Mobile</NetworkName>
-        <ProfileName>Virgin MMS</ProfileName>
-        <URL>http://mms.virginvibe.com.au:8002/</URL>
-        <Auth>normal</Auth>
-        <Proxy>
-          <EnableFlag>on</EnableFlag>
-          <ServAddr>202.139.83.152</ServAddr>
-          <Port>8070</Port>
-        </Proxy>
-        <PSparam>
-          <APN>virginmms</APN>
-        </PSparam>
-      </Profile>
-      <Profile>
-        <NetworkName>3</NetworkName>
-        <ProfileName>3 MMS</ProfileName>
-        <URL>http://mmsc.three.net.au:10021/mmsc</URL>
-        <Auth>normal</Auth>
-        <Proxy>
-          <EnableFlag>on</EnableFlag>
-          <ServAddr>10.176.57.25</ServAddr>
-          <Port>8799</Port>
-        </Proxy>
-        <PSparam>
-          <APN>3services</APN>
-        </PSparam>
-      </Profile>
-      <Profile>
-        <NetworkName>Crazy Johns</NetworkName>
-        <ProfileName>Crazy MMS</ProfileName>
-        <URL>http://purtona.mms/mmssend</URL>
-        <Auth>normal</Auth>
-        <Proxy>
-          <EnableFlag>on</EnableFlag>
-          <ServAddr>10.202.2.20</ServAddr>
-          <Port>8080</Port>
-        </Proxy>
-        <PSparam>
-          <APN>purtona.wap</APN>
-        </PSparam>
-      </Profile>
-      <Profile>
-        <NetworkName>Crazy Johns</NetworkName>
-        <ProfileName>Crazy Internet</ProfileName>
-        <PSparam>
-          <APN>purtona.net</APN>
-        </PSparam>
-      </Profile>
-      <Profile>
         <NetworkName>YES OPTUS</NetworkName>
-        <ProfileName>Optus Internet</ProfileName>
+        <ProfileName>Optus Yes Internet</ProfileName>
         <Auth>normal</Auth>
+        <Protocol>http</Protocol>
+        <MTUSize>1500</MTUSize>
         <Proxy>
           <EnableFlag>off</EnableFlag>
         </Proxy>
         <PSparam>
-          <APN>internet</APN>
-        </PSparam>
-      </Profile>
-      <Profile>
-        <NetworkName>vodafone AU</NetworkName>
-        <ProfileName>VF-AU Internet</ProfileName>
-        <Auth>normal</Auth>
-        <Proxy>
-          <EnableFlag>off</EnableFlag>
-        </Proxy>
-        <PSparam>
-          <APN>vfinternet.au</APN>
+          <APN>yesinternet</APN>
         </PSparam>
       </Profile>
       <Profile>
         <NetworkName>Virgin Mobile</NetworkName>
         <ProfileName>Virgin Internet</ProfileName>
         <Auth>normal</Auth>
+        <Protocol>http</Protocol>
+        <MTUSize>1500</MTUSize>
         <Proxy>
           <EnableFlag>on</EnableFlag>
           <ServAddr>202.139.83.152</ServAddr>
@@ -270,24 +265,103 @@
         </PSparam>
       </Profile>
       <Profile>
-        <NetworkName>GRLmobile</NetworkName>
-        <ProfileName>GRL Internet</ProfileName>
-        <URL>http://grlmobile.mobi</URL>
+        <NetworkName>Virgin Mobile</NetworkName>
+        <ProfileName>Virgin MMS</ProfileName>
+        <URL>http://mms.virginvibe.com.au:8002/</URL>
         <Auth>normal</Auth>
+        <Protocol>http</Protocol>
         <MTUSize>1500</MTUSize>
+        <Proxy>
+          <EnableFlag>on</EnableFlag>
+          <ServAddr>202.139.83.152</ServAddr>
+          <Port>8070</Port>
+        </Proxy>
         <PSparam>
-          <APN>purtona.net</APN>
+          <APN>virginmms</APN>
         </PSparam>
       </Profile>
       <Profile>
-        <NetworkName>GRLmobile</NetworkName>
-        <ProfileName>GRL MMS</ProfileName>
-        <URL>http://purtona.mms/mmssed</URL>
+        <NetworkName>vodafone AU</NetworkName>
+        <ProfileName>Vodafone PXT</ProfileName>
+        <URL>http://pxt.vodafone.net.au/pxtsend</URL>
+        <Auth>none</Auth>
+        <Protocol>http</Protocol>
+        <MTUSize>1500</MTUSize>
+        <Proxy>
+          <EnableFlag>on</EnableFlag>
+          <ServAddr>10.202.2.60</ServAddr>
+          <Port>8080</Port>
+        </Proxy>
+        <PSparam>
+          <APN>live.vodafone.com</APN>
+        </PSparam>
+      </Profile>
+      <Profile>
+        <NetworkName>vodafone AU</NetworkName>
+        <IpVersion>ipv4</IpVersion>
+        <ProfileName>Vodafone AU</ProfileName>
+        <Auth>none</Auth>
+        <Protocol>http</Protocol>
+        <MTUSize>1500</MTUSize>
+        <Proxy>
+          <EnableFlag>off</EnableFlag>
+        </Proxy>
+        <PSparam>
+          <APN>live.vodafone.com</APN>
+        </PSparam>
+      </Profile>
+      <Profile>
+        <NetworkName>Crazy Johns</NetworkName>
+        <ProfileName>Crazy MMS</ProfileName>
+        <URL>http://purtona.mms/mmssend</URL>
         <Auth>normal</Auth>
+        <MTUSize>1500</MTUSize>
         <Proxy>
           <EnableFlag>on</EnableFlag>
           <ServAddr>10.202.2.20</ServAddr>
           <Port>8080</Port>
+        </Proxy>
+        <PSparam>
+          <APN>purtona.wap</APN>
+        </PSparam>
+      </Profile>
+      <Profile>
+        <NetworkName>3</NetworkName>
+        <ProfileName>3 MMS</ProfileName>
+        <URL>http://mmsc.three.net.au:10021/mmsc</URL>
+        <Auth>normal</Auth>
+        <Protocol>http</Protocol>
+        <MTUSize>1500</MTUSize>
+        <Proxy>
+          <EnableFlag>on</EnableFlag>
+          <ServAddr>10.176.57.25</ServAddr>
+          <Port>8799</Port>
+        </Proxy>
+        <PSparam>
+          <APN>3services</APN>
+        </PSparam>
+      </Profile>
+      <Profile>
+        <NetworkName>3</NetworkName>
+        <ProfileName>Planet 3</ProfileName>
+        <Auth>normal</Auth>
+        <Protocol>http</Protocol>
+        <MTUSize>1500</MTUSize>
+        <Proxy>
+          <EnableFlag>off</EnableFlag>
+        </Proxy>
+        <PSparam>
+          <APN>3services</APN>
+        </PSparam>
+      </Profile>
+      <Profile>
+        <NetworkName>Crazy Johns</NetworkName>
+        <ProfileName>Crazy Internet</ProfileName>
+        <Auth>normal</Auth>
+        <Protocol>http</Protocol>
+        <MTUSize>1500</MTUSize>
+        <Proxy>
+          <EnableFlag>off</EnableFlag>
         </Proxy>
         <PSparam>
           <APN>purtona.net</APN>

@@ -1,8 +1,4 @@
-﻿<?xml  version="1.0" encoding="UTF-8" ?>
-<CustomerData>
-  <BrowserData>
-    <HomePage>
-      <URL>http://www.google.com.au</URL>
-    </HomePage>
-  </BrowserData>
-</CustomerData>
+<?xml  version="1.0" encoding="UTF-8" ?>
+<CustomerData>
+<BrowserData>	<HomePage>		<URL>http://www.google.com.au</URL>	</HomePage></BrowserData><Launcher>	<favorites>		<favorite_type>launcher</favorite_type>		<launcher:screenCount>5</launcher:screenCount>		<launcher:defaultScreenCount>5</launcher:defaultScreenCount>					</favorites>	<!-- Page 1 -->	<favorites>		<favorite_type>search</favorite_type>		<screen>0</screen>		<launcher_x>0</launcher_x>		<launcher_y>0</launcher_y>					</favorites>	<favorites>		<favorite_type>favorite</favorite_type>		<packageName>com.google.android.gm</packageName>		<className>com.google.android.gm.ConversationListActivityGmail</className>		<screen>0</screen>		<launcher_x>0</launcher_x>		<launcher_y>2</launcher_y>					</favorites>		<favorites>		<favorite_type>favorite</favorite_type>		<packageName>com.google.android.apps.maps</packageName>		<className>com.google.android.maps.MapsActivity</className>		<screen>0</screen>		<launcher_x>1</launcher_x>		<launcher_y>2</launcher_y>					</favorites>	<favorites>		<favorite_type>favorite</favorite_type>		<packageName>com.android.vending</packageName>		<className>com.android.vending.AssetBrowserActivity</className>		<screen>0</screen>		<launcher_x>2</launcher_x>		<launcher_y>2</launcher_y>					</favorites>	<favorites>		<favorite_type>favorite</favorite_type>		<packageName>com.google.android.talk</packageName>		<className>com.google.android.talk.SigningInActivity</className>		<screen>0</screen>		<launcher_x>0</launcher_x>		<launcher_y>3</launcher_y>					</favorites>	<favorites>		<favorite_type>favorite</favorite_type>		<packageName>com.google.android.youtube</packageName>		<className>com.google.android.youtube.app.froyo.phone.HomeActivity</className>		<screen>0</screen>		<launcher_x>1</launcher_x>		<launcher_y>3</launcher_y>					</favorites>		<favorites>		<favorite_type>favorite</favorite_type>		<packageName>com.sec.android.app.writeandgo</packageName>		<className>com.sec.android.app.writeandgo.WriteandGo_Edit</className>		<screen>0</screen>		<launcher_x>2</launcher_x>		<launcher_y>3</launcher_y>					</favorites></Launcher><SettingsData>	<InputMethod>com.swype.android.inputmethod/.SwypeInputMethod</InputMethod>	<LocationProvidersAllowed>network</LocationProvidersAllowed></SettingsData>
+</CustomerData>

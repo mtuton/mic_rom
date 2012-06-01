@@ -14,6 +14,18 @@ Bacis instructions
 Script Usage
 # ./scripts/cook_rom.sh -k xxjvt -m xxjvt -c xsa -s xxjvt 
 
+Usage:
+  -k    - kernel (default is "kernel")
+  -m    - modem  (default is "modem")
+  -c    - CSC    (default is "xsa")
+  -b    - bootanimation (default is "none")
+  -s    - ROM base directory (located in rom_bases, default is "rom")
+  -r    - include autorun files (default is yes, "no" to remove)
+  -o    - include startup sounds (default is yes)
+  -t    - include battery notification tone (default is yes)
+  -h    - this message
+
+
 customisations complete file listing below.
 
 ./META-INF

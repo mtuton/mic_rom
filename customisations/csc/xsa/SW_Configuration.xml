@@ -1,4 +1,4 @@
-﻿<?xml  version="1.0" encoding="UTF-8" ?>
+<?xml  version="1.0" encoding="UTF-8" ?>
 <SW-Configuration>
   <MobileData>
     <PublicName>GT-I9000</PublicName>
@@ -6,7 +6,7 @@
   </MobileData>
   <CustomerDataSet>
     <CSCName>I9000XSA</CSCName>
-    <CSCVersion>JG2</CSCVersion>
+    <CSCVersion>JV8</CSCVersion>
     <NbCustomer>1</NbCustomer>
     <CustomerData src="/Customer/XSA/customer.xml" />
   </CustomerDataSet>
